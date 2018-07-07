@@ -543,9 +543,17 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onMarkerClick(Marker marker) {
 
-
         Log.v("Frankie", marker.getId() + marker.getPosition());
-        if (marker.getId().equals("m3")) {
+        if(marker.getId().equals("m0")){
+            polyline.setPoints(PolyUtil.decode("utegCwtywTeI`Aa@FQsAOsA?[Kw@E?CMmBT}@JYBKG@E?EKeASoBAMm@F"));
+            polyline.setVisible(true);
+        }else if (marker.getId().equals("m1")) {
+            polyline.setPoints(PolyUtil.decode("utegCwtywTeI`Aa@FQsAOsA?[Kw@FAG}@lC]NCEq@G_AfC["));
+            polyline.setVisible(true);
+        }else if (marker.getId().equals("m2")) {
+            polyline.setPoints(PolyUtil.decode("utegCwtywTeI`Aa@FQsAOsA?[D^tCW~AS"));
+            polyline.setVisible(true);
+        } else if (marker.getId().equals("m3")) {
             polyline.setPoints(PolyUtil.decode("utegCwtywTeI`Aa@FQsAOsA?[Kw@uBT}@JAMM@@Ne@Do@J"));
             polyline.setVisible(true);
         } else if (marker.getId().equals("m4")) {
