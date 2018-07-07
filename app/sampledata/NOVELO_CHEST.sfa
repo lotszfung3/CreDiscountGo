@@ -1,16 +1,16 @@
 {
    materials: [
       {
-         name: "mat12",
+         name: "default_Mat",
          parameters: [
             {
                baseColor: null,
             },
             {
                baseColorTint: [
-                  1,
-                  0.92000000000000004,
-                  0.23000000000000001,
+                  0.59999999999999998,
+                  0.59999999999999998,
+                  0.59999999999999998,
                   1,
                ],
             },
@@ -27,7 +27,7 @@
          source: "build/sceneform_sdk/default_materials/obj_material.sfm",
       },
       {
-         name: "mat21",
+         name: "Mat.1",
          parameters: [
             {
                baseColor: null,
@@ -35,8 +35,8 @@
             {
                baseColorTint: [
                   1,
-                  1,
-                  1,
+                  0.74583299999999997,
+                  0.39000000000000001,
                   1,
                ],
             },
@@ -53,16 +53,16 @@
          source: "build/sceneform_sdk/default_materials/obj_material.sfm",
       },
       {
-         name: "mat8",
+         name: "Mat",
          parameters: [
             {
                baseColor: null,
             },
             {
                baseColorTint: [
-                  0.95999999999999996,
-                  0.26000000000000001,
-                  0.20999999999999999,
+                  1,
+                  0.78333299999999995,
+                  0,
                   1,
                ],
             },
@@ -86,9 +86,9 @@
          "Orientation",
       ],
       collision: {},
-      file: "sampledata/model.obj",
-      name: "model",
-      scale: 0.3012969999999999996,
+      file: "sampledata/NOVELO_CHEST.obj",
+      name: "NOVELO_CHEST",
+      scale: 0.0012969999999999996,
    },
    version: "0.51:1",
 }

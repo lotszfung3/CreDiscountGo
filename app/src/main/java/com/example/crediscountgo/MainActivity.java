@@ -1,5 +1,6 @@
 package com.example.crediscountgo;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -135,7 +136,9 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_slideshow) {
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.temp_ar) {
+            Intent temp = new Intent(this, ARActivity.class);
+            startActivity(temp);
 
         } else if (id == R.id.nav_share) {
 

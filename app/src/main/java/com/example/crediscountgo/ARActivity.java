@@ -22,6 +22,7 @@ import com.google.ar.core.TrackingState;
 import com.google.ar.sceneform.AnchorNode;
 import com.google.ar.sceneform.HitTestResult;
 import com.google.ar.sceneform.Node;
+import com.google.ar.sceneform.math.Vector3;
 import com.google.ar.sceneform.rendering.ModelRenderable;
 import com.google.ar.sceneform.ux.ArFragment;
 import com.google.ar.sceneform.ux.TransformableNode;
@@ -54,7 +55,7 @@ public class ARActivity extends AppCompatActivity {
         // When you build a Renderable, Sceneform loads its resources in the background while returning
         // a CompletableFuture. Call thenAccept(), handle(), or check isDone() before calling get().
         ModelRenderable.builder()
-                .setSource(this, Uri.parse("Heart.sfb"))
+                .setSource(this, Uri.parse("model.sfb"))
                 .build()
                 .thenAccept(renderable -> heartRenderable = renderable)
                 .exceptionally(
@@ -66,7 +67,7 @@ public class ARActivity extends AppCompatActivity {
                             return null;
                         });
         ModelRenderable.builder()
-                .setSource(this, R.raw.andy)
+                .setSource(this, Uri.parse("NOVELO_CHEST.sfb"))
                 .build()
                 .thenAccept(renderable -> andyRenderable = renderable)
                 .exceptionally(
@@ -147,22 +148,31 @@ public class ARActivity extends AppCompatActivity {
                         return;
                     }
 
-                    // Create the Anchor.
+
                     Anchor anchor = hit.createAnchor();
                     AnchorNode anchorNode = new AnchorNode(anchor);
                     anchorNode.setParent(arFragment.getArSceneView().getScene());
 
+                    // Create the Anchor.
+                    Node base = new Node();
+                    base.setParent(anchorNode);
+
+                    Node ground = new Node();
+                    ground.setParent(base);
+                    ground.setLocalPosition(new Vector3(0.0f, 0.5f, 0.0f));
+
                     // Create the transformable andy and add it to the anchor.
-                    TransformableNode andy = new TransformableNode(arFragment.getTransformationSystem());
-                    andy.setParent(anchorNode);
+                    Node andy = new Node();
+                    andy.setParent(ground);
                     andy.setRenderable(andyRenderable);
-                    andy.select();
+                    andy.setLocalScale(new Vector3(1f, 1f, 1f));
                     andy.setOnTapListener(new Node.OnTapListener() {
                         @Override
                         public void onTap(HitTestResult hitTestResult, MotionEvent motionEvent) {
                             Log.d(TAG, "3d obj is tapped");
                             andy.setRenderable(heartRenderable);
-                            andy.select();
+                            andy.setLocalScale(new Vector3(0.8f, 0.8f, 0.8f));
+                            andy.setLocalPosition(new Vector3(0.0f, 0.18f, 0.0f));
                         }
                     });
                     isInit=true;
