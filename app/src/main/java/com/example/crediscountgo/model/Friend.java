@@ -10,6 +10,11 @@ public class Friend {
     private String name;
     private String school;
     private String major;
+
+    public String getRole() {
+        return role;
+    }
+
     private String role;
 
     public Friend(int iconId, String name, String school, String major, String role){
@@ -27,18 +32,20 @@ public class Friend {
     }
 
     public String getDescription(){
-        return this.school + ", " + this.major + ", " + this.role;
+        return this.school + ", " + this.major;
     }
 
     public static List<Friend> generateSampleFriendList(){
         List<Friend> friends = new ArrayList<>();
 
-        friends.add(new Friend(R.drawable.ben_choi,"Ben Choi", "HKU", "CS", "Software Developer"));
-        friends.add(new Friend(R.drawable.sunday_wong,"Sunday Wong", "HKU", "CS", "Software Develope"));
-        friends.add(new Friend(R.drawable.ic_launcher_foreground,"Frankie Lo", "HKU", "CS", "Software Develope"));
-        friends.add(new Friend(R.drawable.elvis_ngai,"Elvis Ngai", "HKU", "MAJOR", "ROLE"));
-        friends.add(new Friend(R.drawable.olivia_lai,"Olivia Lai", "HKU", "CS", "Software Develope"));
-        friends.add(new Friend(R.drawable.kelvin_wong,"Kelvin Wong", "HKU", "MAJOR", "ROLE"));
+        friends.add(new Friend(R.drawable.elvis_ngai,"Elvis Ngai", "HKU", "BBA(IBGM)", "Business Management & Development"));
+        friends.add(new Friend(R.drawable.kelvin_wong,"Kelvin Wong", "HKU", "BBA(IBGM)", "Finance & Marketing"));
+
+        friends.add(new Friend(R.drawable.ben_choi,"Ben Choi", "HKU", "BEng(CS)", "Full Stack Developer"));
+        friends.add(new Friend(R.drawable.frankie_lo1,"Frankie Lo", "HKU", "BEng(CS)", "Full Stack Developer"));
+        friends.add(new Friend(R.drawable.olivia_lai,"Olivia Lai", "HKU", "BEng(CS)", "Front-End Developer"));
+        friends.add(new Friend(R.drawable.sunday_wong,"Sunday Wong", "HKU", "BEng(CS)", "Product Manager"));
+
 
         return friends;
     }

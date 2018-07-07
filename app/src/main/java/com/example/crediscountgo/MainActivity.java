@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Build;
@@ -38,8 +39,8 @@ import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.example.crediscountgo.model.Card;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -48,7 +49,6 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
-import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.JointType;
 import com.google.android.gms.maps.model.LatLng;
@@ -64,7 +64,6 @@ import com.google.maps.android.PolyUtil;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 public class MainActivity extends AppCompatActivity
@@ -207,13 +206,13 @@ public class MainActivity extends AppCompatActivity
 
     }
     private void initDiscountMarkersArrayList(){
-        Discount tempDis0= new Discount("m0", "Seaview Congee Shop", "10% off on any purchase", "LongDis of m0", "AE", "AE");
-        Discount tempDis1= new Discount("m1", "Dessert Restaurant", "$10 Discount", "LongDis of m1", "DBS", "DBS");
-        Discount tempDis2= new Discount("m2", "London Chinese Restaurant", "20% off for Purchases exceeding $200", "LongDis of m2", "HSBC", "HSBC");
-        Discount tempDis3= new Discount("m3", "Sasa",  "Half Price - specific products", "LongDis of m3", "AE", "AE");
-        Discount tempDis4= new Discount("m4", "Adidas", "15% off on any purchase", "LongDis of m4", "DBS", "DBS");
-        Discount tempDis5= new Discount("m5", "Langham Place", "5% off in specific stores", "LongDis of m5", "HSBC", "HSBC");
-        Discount tempDis6= new Discount("m6", "Ease House Cafe", "1 Free dessert per set dinner", "LongDis of m6", "AE", "AE");
+        Discount tempDis0= new Discount("m0", "Seaview Congee Shop", "10% off on any purchase", "LongDis of m0", "AE", "Your AE card:");
+        Discount tempDis1= new Discount("m1", "Dessert Restaurant", "$10 Discount", "LongDis of m1", "DBS", "Your DBS card:");
+        Discount tempDis2= new Discount("m2", "London Chinese Restaurant", "20% off for Purchases \n exceeding $200", "LongDis of m2", "HSBC", "Your HSBC card:");
+        Discount tempDis3= new Discount("m3", "Sasa",  "Half Price - specific products", "LongDis of m3", "AE", "Your AE card:");
+        Discount tempDis4= new Discount("m4", "Adidas", "15% off on any purchase", "LongDis of m4", "DBS", "Your DBS card:");
+        Discount tempDis5= new Discount("m5", "Langham Place", "5% off in specific stores", "LongDis of m5", "HSBC", "Your HSBC card:");
+        Discount tempDis6= new Discount("m6", "Ease House Cafe", "1 Free dessert per set dinner", "LongDis of m6", "AE", "Your AE card:");
         discountMarkersArrayList.add(tempDis0);
         discountMarkersArrayList.add(tempDis1);
         discountMarkersArrayList.add(tempDis2);
@@ -450,7 +449,7 @@ public class MainActivity extends AppCompatActivity
                     else
                         markerArrayList.add(mMap.addMarker(new MarkerOptions().position(new LatLng(markerCoor[2 * i], markerCoor[2 * i + 1])).icon(BitmapDescriptorFactory.fromResource(R.drawable.shopping_marker))));
                 }
-                Bitmap img = BitmapFactory.decodeResource(getResources(),R.drawable.treasure_2);
+                Bitmap img = BitmapFactory.decodeResource(getResources(),R.drawable.chest_marker);
                 BitmapDescriptor bitmapDescriptor = BitmapDescriptorFactory.fromBitmap(img);
                 for (int i=0;i<treasureCoor.length/2;i++){
                     mMap.addMarker( new MarkerOptions().position(new LatLng(treasureCoor[2*i],treasureCoor[2*i+1])).icon(bitmapDescriptor));
@@ -465,7 +464,7 @@ public class MainActivity extends AppCompatActivity
 
                 polyline.setEndCap(new RoundCap());
                 polyline.setWidth(POLYLINE_STROKE_WIDTH_PX);
-                polyline.setColor(COLOR_BLACK_ARGB);
+                polyline.setColor(Color.parseColor("#2684C2"));
                 polyline.setJointType(JointType.ROUND);
                 polyline.setWidth(15);
                 polyline.setVisible(false);
@@ -545,7 +544,7 @@ public class MainActivity extends AppCompatActivity
     public boolean onMarkerClick(Marker marker) {
 
 
-        Log.v("Frankie", marker.getId());
+        Log.v("Frankie", marker.getId() + marker.getPosition());
         if (marker.getId().equals("m3")) {
             polyline.setPoints(PolyUtil.decode("utegCwtywTeI`Aa@FQsAOsA?[Kw@uBT}@JAMM@@Ne@Do@J"));
             polyline.setVisible(true);
@@ -595,9 +594,9 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 // Dismiss the popup window
-                shopPop.dismiss();
-                Intent intent = new Intent(getApplicationContext(), TestActivity.class);
+                Intent intent = new Intent(MainActivity.this, TestActivity.class);
                 startActivity(intent);
+                shopPop.dismiss();
             }
         });
 
@@ -610,7 +609,7 @@ public class MainActivity extends AppCompatActivity
                     //shopAddr.setText(tempD.getShopAddrLine());
                     shopAddr.setText(returnAddr(marker.getId()));
                     shopShortDis.setText(tempD.getShortDis());
-                    shopCard.setText(tempD.getCard());
+                    shopCard.setText(tempD.getIssuer());
 
                     Log.v("marker match", "card: " + findCardLogo(tempD.getCard()));
 
@@ -625,7 +624,7 @@ public class MainActivity extends AppCompatActivity
             }
 
             shopPop.setOutsideTouchable(true);
-            shopPop.showAtLocation(maprlayout, Gravity.TOP, 0, 5);
+            shopPop.showAtLocation(maprlayout, Gravity.TOP, 0, 500);
 
         }
         return false;

@@ -1,102 +1,135 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TestActivity"
-    android:orientation="vertical"
-    android:background="@drawable/discount_details_bg"
-    >
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:background="#888888"
-        android:src="@drawable/place"
-        android:scaleType="centerCrop"
-        />
-<ScrollView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="10dp">
+    tools:context=".TestActivity" >
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Langham Place | 朗豪坊"
-        android:textAlignment="center"
-        android:textSize="30dp"
-        android:layout_margin="5dp"
-        android:textColor="#ffffff"/>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="#ffffff"
-        android:layout_margin="7dp"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_textsms_black_24dp"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Langham Place is a commercial complex and shopping centre in Mong Kok, Kowloon, Hong Kong. The official opening was on 25 January 2005. The complex occupies two blocks defined by Argyle Street, Portland Street, Shantung Street and Reclamation Street."
-            android:textSize="20dp"
-            android:layout_margin="5dp"
-            android:textColor="#ffffff"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_place_black_24dp"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Langham Place Shopping Mall, Argyle St, Mong Kok"
-            android:textSize="20dp"
-            android:layout_margin="5dp"
-            android:textColor="#ffffff"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_phone_black_24dp"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="(+852) 3520 2800"
-            android:textSize="20dp"
-            android:layout_margin="5dp"
-            android:textColor="#ffffff"/>
+        android:orientation="vertical"
+        android:background="@drawable/discount_details_bg"
+        >
 
-    </LinearLayout>
-        <TextView
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/img_frame"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="0dp">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:background="#888888"
+                android:src="@drawable/place"
+                android:scaleType="centerCrop"
+                />
+
+            <ImageButton
+                android:id="@+id/close_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintVertical_bias="0.05"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintHorizontal_bias="0.05"
+                app:srcCompat="@drawable/ic_arrow_back_black_24dp" />
+
+        </android.support.constraint.ConstraintLayout>
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Note:
+            android:padding="10dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Langham Place | 朗豪坊"
+                    android:textAlignment="center"
+                    android:textSize="30dp"
+                    android:layout_margin="5dp"
+                    android:textColor="#ffffff"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="#ffffff"
+                    android:layout_margin="7dp"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_textsms_black_24dp"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Langham Place is a commercial complex and shopping centre in Mong Kok, Kowloon, Hong Kong. The official opening was on 25 January 2005. The complex occupies two blocks defined by Argyle Street, Portland Street, Shantung Street and Reclamation Street."
+                        android:textSize="20dp"
+                        android:layout_margin="5dp"
+                        android:textColor="#ffffff"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_place_black_24dp"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Langham Place Shopping Mall, Argyle St, Mong Kok"
+                        android:textSize="20dp"
+                        android:layout_margin="5dp"
+                        android:textColor="#ffffff"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_phone_black_24dp"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="(+852) 3520 2800"
+                        android:textSize="20dp"
+                        android:layout_margin="5dp"
+                        android:textColor="#ffffff"/>
+
+                </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Note:
 • Each Cardholder can only enjoy the offer for a maximum of 1 time with the same eligible card per day.
 • Eligible Transaction does NOT include split transaction, prepayment, deposit, cash advance, purchase of any cash coupon, gift voucher, prepaid, add-value service, utilities payment, membership payments, any payment service, any unposted/cancelled/refunded/unauthorized transactions and transaction without original credit card sales slips or printed merchant receipts.
 • Any transaction made in stores not mentioned above are not eligible for the Promotion. Terms and Conditions apply."
-            android:textColor="#ffffff"
-            android:textSize="10dp"
-            android:layout_margin="5dp"
-            />
-    </LinearLayout>
-</ScrollView>
+                    android:textColor="#ffffff"
+                    android:textSize="10dp"
+                    android:layout_margin="5dp"
+                    />
+            </LinearLayout>
+        </ScrollView>
 
-</LinearLayout>
+    </LinearLayout>
+
+
+
+</android.support.constraint.ConstraintLayout>

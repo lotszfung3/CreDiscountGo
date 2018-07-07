@@ -14,22 +14,25 @@
         android:textAlignment="textStart"
         android:textSize="14sp"
         android:textColor="#1e1e1e"
-        android:padding="12dp"/>
+        android:paddingLeft="5dp"
+        android:paddingBottom="5dp"
+        android:paddingTop="15dp"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/friend_list_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/constrainLayout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/friend_list_title_text_view" />
 
     <android.support.constraint.ConstraintLayout
-        app:layout_constraintBottom_toBottomOf="@id/friend_list_recycler_view"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/friend_list_recycler_view"
         android:orientation="horizontal"
-        android:layout_margin="30dp"
+        android:layout_margin="5dp"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="wrap_content"
         android:id="@+id/constrainLayout">
 
         <Button
@@ -39,8 +42,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:textSize="12sp"
 
-            android:background="#0051ff"
+            android:background="@drawable/btn_blue_rounded_bg"
             android:textColor="#FFF"
             android:text="Gift" />
         <Button
@@ -50,8 +54,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:background="#0051ff"
+            android:background="@drawable/btn_blue_rounded_bg"
             android:textColor="#FFF"
+            android:textSize="12sp"
             android:text="Exchange" />
 
     </android.support.constraint.ConstraintLayout>

@@ -18,7 +18,7 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.ViewHolder
     public static class ViewHolder extends RecyclerView.ViewHolder{
         public ImageView iconImageView;
         public TextView nameTextView;
-        public TextView descriptionTextView;
+        public TextView descriptionTextView, roleTextView;
 
         public ViewHolder(View itemView){
             super(itemView);
@@ -26,6 +26,7 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.ViewHolder
             iconImageView = (ImageView) itemView.findViewById(R.id.friend_item_icon);
             nameTextView = (TextView) itemView.findViewById(R.id.friend_item_name);
             descriptionTextView = (TextView) itemView.findViewById(R.id.friend_item_description);
+            roleTextView = (TextView) itemView.findViewById(R.id.friend_item_role);
         }
     }
 
@@ -57,9 +58,11 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.ViewHolder
         ImageView iconImageView = holder.iconImageView;
         TextView nameTextView = holder.nameTextView;
         TextView descriptionTextView = holder.descriptionTextView;
+        TextView roleTextView = holder.roleTextView;
 
         iconImageView.setBackgroundResource(friend.getIcon());
         nameTextView.setText(friend.getName());
         descriptionTextView.setText(friend.getDescription());
+        roleTextView.setText(friend.getRole());
     }
 }
