@@ -34,7 +34,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.PopupWindow;
-import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -44,7 +43,6 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
-import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.JointType;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
@@ -54,7 +52,6 @@ import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.maps.model.RoundCap;
 import com.google.maps.android.PolyUtil;
-
 
 import java.util.ArrayList;
 
@@ -81,7 +78,6 @@ public class MainActivity extends AppCompatActivity
 
 
     private FloatingActionButton filterActionButton;
-    LatLng KT = new LatLng(22.3088477, 114.217971);
 
     private Polyline polyline;
     private static final int COLOR_BLACK_ARGB = 0xffccaa70;
@@ -125,8 +121,6 @@ public class MainActivity extends AppCompatActivity
 
         setUpMap();
 
-
-
         c1_val = true;
         c2_val = true;
         c3_val = true;
@@ -137,8 +131,6 @@ public class MainActivity extends AppCompatActivity
         setUpfilterBtn();
 
         markerArrayList=new ArrayList<>(5);
-
-
 
     }
 
@@ -317,7 +309,7 @@ public class MainActivity extends AppCompatActivity
         mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition), 2000, new GoogleMap.CancelableCallback() {
             @Override
             public void onFinish() {
-                mMap.addCircle(new CircleOptions().center(new LatLng(22.316434177817605,114.16926439851522)).radius(10));
+
                 for(int i=0;i<markerCoor.length/2;i++) {
                     if(i<3)
 
@@ -331,6 +323,7 @@ public class MainActivity extends AppCompatActivity
                     mMap.addMarker( new MarkerOptions().position(new LatLng(treasureCoor[2*i],treasureCoor[2*i+1])).snippet("marker: "+i).title("asdasd").icon(bitmapDescriptor));
                 }
 
+                mMap.addMarker(new MarkerOptions().position(new LatLng(22.316434177817605,114.16926439851522)).icon(vectorToBitmap(R.drawable.ic_tag_faces_black_24dp)));
 
                 polyline= mMap.addPolyline(new PolylineOptions().addAll(PolyUtil.decode("utegCwtywTeI`Aa@FQsAOsA?[Kw@uBT}@JAMM@@Ne@Do@J")));
                 // Use a round cap at the start of the line.
