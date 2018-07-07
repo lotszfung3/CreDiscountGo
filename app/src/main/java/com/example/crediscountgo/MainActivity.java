@@ -34,6 +34,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -501,6 +502,7 @@ public class MainActivity extends AppCompatActivity
             }
 
         }
+       
 
         Button closeButton = (Button) customViewShop.findViewById(R.id.ss_close);
 
