@@ -39,6 +39,9 @@
         <meta-data
             android:name="com.google.ar.core"
             android:value="required" />
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
 
         <activity
             android:name=".MainActivity"
@@ -53,7 +56,8 @@
         <activity
             android:name=".ARActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".DiscountDetailsActivity"></activity>
+        <activity android:name=".DiscountDetailsActivity"
+            android:theme="@style/AppTheme.NoActionBar">></activity>
     </application>
 
 </manifest>

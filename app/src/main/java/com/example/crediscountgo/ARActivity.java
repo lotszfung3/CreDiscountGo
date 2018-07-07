@@ -3,6 +3,7 @@ package com.example.crediscountgo;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Point;
 import android.net.Uri;
 import android.os.Build;
@@ -27,6 +28,7 @@ import com.google.ar.sceneform.rendering.ModelRenderable;
 import com.google.ar.sceneform.rendering.ViewRenderable;
 import com.google.ar.sceneform.ux.ArFragment;
 import com.google.ar.sceneform.ux.TransformableNode;
+import com.google.gson.Gson;
 
 import java.util.List;
 
@@ -144,7 +146,7 @@ public class ARActivity extends AppCompatActivity {
     }
 
     public Surprise createSurprise(){
-        return new MovieDiscount(this);
+        return new MovieDiscount();
     }
 
     @Override
@@ -207,6 +209,12 @@ public class ARActivity extends AppCompatActivity {
                                 @Override
                                 public void onTap(HitTestResult hitTestResult, MotionEvent motionEvent) {
                                     Log.d(TAG, "surpriseNode is tapped");
+                                    MovieDiscount discount = new MovieDiscount();
+                                    Gson gson = new Gson();
+                                    Intent startDiscountDts = new Intent(ARActivity.this, DiscountDetailsActivity.class);
+                                    startDiscountDts.putExtra("surpriseDetails", gson.toJson(discount));
+                                    startActivity(startDiscountDts);
+
                                 }
                             });
 

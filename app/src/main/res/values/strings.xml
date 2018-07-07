@@ -13,4 +13,7 @@
     <string name="congrats">Congratulations!</string>
     <string name="won">You\'ve won a prize!</string>
     <string name="click_for_details">Click to view more details</string>
+    <string name="discount_message">50% off Movie Ticket Discount!</string>
+    <string name="discount_title">Discount title</string>
+    <string name="partnership">partners</string>
 </resources>
