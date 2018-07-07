@@ -1,6 +1,10 @@
 package com.example.crediscountgo;
 
+import android.app.ActionBar;
+import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,31 +17,49 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.PopupWindow;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.UiSettings;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener,OnMapReadyCallback {
+        implements NavigationView.OnNavigationItemSelectedListener,OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener, GoogleMap.OnMapClickListener {
     private GoogleMap mMap;
-    private double markerCoor[] = new double[20];
-    private ArrayList<Circle> circleArrayList;
+    private double markerCoor[] = {
+            22.319960, 114.171100,
+            22.317043339029887,114.1712237522006,
+            22.31716895493705,114.17005430907011,
+            22.319859279350407,114.16982866823673,
+            22.318747053294828,114.1710225865245
+
+    };
+    private double treasureCoor[]={
+            22.320154237980244,114.17336348444223,
+            22.322470773620328,114.16858848184347
+    };
+    private ArrayList<Marker> markerArrayList;
     private FloatingActionButton floatingActionButton;
-    LatLng KT = new LatLng(22.3088477, 114.217971);
+    LatLng MK = new LatLng(22.318188, 114.170216);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +81,7 @@ public class MainActivity extends AppCompatActivity
         setUpMap();
 
         setUpFloatingBtn();
+        markerArrayList=new ArrayList<>(5);
 
 
     }
@@ -69,24 +92,12 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 //Creating the instance of PopupMenu
-                PopupMenu popup = new PopupMenu(MainActivity.this, floatingActionButton);
+                View popupView = getLayoutInflater().inflate(R.layout.activity_test,null);
+                PopupWindow popup = new PopupWindow(popupView, ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT,true);
                 //Inflating the Popup using xml file
-                popup.getMenuInflater()
-                        .inflate(R.menu.activity_main_drawer, popup.getMenu());
-
                 //registering popup with OnMenuItemClickListener
-                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    public boolean onMenuItemClick(MenuItem item) {
-                        Toast.makeText(
-                                MainActivity.this,
-                                "You Clicked : " + item.getTitle(),
-                                Toast.LENGTH_SHORT
-                        ).show();
-                        return true;
-                    }
-                });
 
-                popup.show(); //showing popup menu
+               popup.showAtLocation(floatingActionButton, Gravity.CENTER,0,0);
             }
         });
     }
@@ -148,14 +159,6 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
     private void setUpMap(){
-        Random rand= new Random();
-        for (int i=0;i < 10 ;i++)
-        {
-
-            markerCoor[2*i]= KT.latitude + rand.nextGaussian()/1000;
-            markerCoor[2*i+1]= KT.longitude + rand.nextGaussian()/1000;
-        }
-        circleArrayList = new ArrayList<>(10);
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -166,7 +169,11 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
+
         mMap = googleMap;
+        mMap.getUiSettings().setMapToolbarEnabled(false);
+        mMap.setOnInfoWindowClickListener(this);
+        mMap.setOnMapClickListener(this);
         try {
             // Customise the styling of the base map using a JSON object defined
             // in a raw resource file.
@@ -184,11 +191,19 @@ public class MainActivity extends AppCompatActivity
         LatLng HK = new LatLng(22.2829369,114.1828038);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(HK,10));
 
-        // Add circle
-        for(int i=0;i<markerCoor.length/2;i++) {
+        // Add markers
 
-            CircleOptions circleOptions = new CircleOptions().center(new LatLng(markerCoor[2*i],markerCoor[2*i+1])).radius(30).strokeWidth(3).fillColor(Color.argb(128, 255, 0, 0));
-            circleArrayList.add(mMap.addCircle(circleOptions));
+        for(int i=0;i<markerCoor.length/2;i++) {
+            if(i<3)
+               markerArrayList.add(mMap.addMarker( new MarkerOptions().position(new LatLng(markerCoor[2*i],markerCoor[2*i+1])).snippet("marker: "+i).title("asdasd")));
+            else
+                markerArrayList.add(mMap.addMarker( new MarkerOptions().position(new LatLng(markerCoor[2*i],markerCoor[2*i+1])).snippet("marker: "+i).title("asdasd").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))));
+
+        }
+        Bitmap img = BitmapFactory.decodeResource(getResources(),R.drawable.treasure_2);
+        BitmapDescriptor bitmapDescriptor = BitmapDescriptorFactory.fromBitmap(img);
+        for (int i=0;i<treasureCoor.length/2;i++){
+            mMap.addMarker( new MarkerOptions().position(new LatLng(treasureCoor[2*i],treasureCoor[2*i+1])).snippet("marker: "+i).title("asdasd").icon(bitmapDescriptor));
         }
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -202,10 +217,37 @@ public class MainActivity extends AppCompatActivity
     private void initCameraPosition()
     {
         CameraPosition cameraPosition = new CameraPosition.Builder()
-                .target(KT)      // Sets the center of the map to Mountain View
-                .zoom(16.5f)                   // Sets the zoom
+                .target(MK)      // Sets the center of the map to Mountain View
+                .zoom(17f)                   // Sets the zoom
                 .tilt(30)                   // Sets the tilt of the camera to 30 degrees
                 .build();                   // Creates a CameraPosition from the builder
         mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition),2000,null);
+    }
+    @Override
+    public void onInfoWindowClick(Marker marker) {
+        Log.v("frankie","asdasdsa");
+        Toast.makeText(this, "Info window clicked",
+                Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, TestActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onMapClick(LatLng latLng) {
+        Log.d("Frankie",latLng.latitude+""+latLng.longitude);
+    }
+    private void filterMarkers(int id)
+    {
+        boolean mask1=(id==1 || id==3);
+        boolean mask2=(id>1);
+
+            for (int i=0;i<markerArrayList.size();i++) {
+                if (i < 3)
+                    markerArrayList.get(i).setVisible(mask1);
+                else
+                    markerArrayList.get(i).setVisible(mask2);
+            }
+
+
     }
 }
