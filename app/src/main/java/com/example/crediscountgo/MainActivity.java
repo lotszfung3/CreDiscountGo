@@ -48,6 +48,8 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.Circle;
+import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.JointType;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
@@ -442,17 +444,17 @@ public class MainActivity extends AppCompatActivity
                 for(int i=0;i<markerCoor.length/2;i++) {
                     if(i<3)
 
-                        markerArrayList.add( mMap.addMarker(new MarkerOptions().position(new LatLng(markerCoor[2*i],markerCoor[2*i+1])).snippet("marker: "+i).title("asdasd").icon(vectorToBitmap(R.drawable.ic_local_dining_black_24dp))));
+                        markerArrayList.add( mMap.addMarker(new MarkerOptions().position(new LatLng(markerCoor[2*i],markerCoor[2*i+1])).icon(BitmapDescriptorFactory.fromResource(R.drawable.fastfood_marker))));
                     else
-                        markerArrayList.add(mMap.addMarker(new MarkerOptions().position(new LatLng(markerCoor[2 * i], markerCoor[2 * i + 1])).snippet("marker: " + i).title("asdasd").icon(vectorToBitmap((R.drawable.ic_store_mall_directory_black_24dp)))));
+                        markerArrayList.add(mMap.addMarker(new MarkerOptions().position(new LatLng(markerCoor[2 * i], markerCoor[2 * i + 1])).icon(BitmapDescriptorFactory.fromResource(R.drawable.shopping_marker))));
                 }
                 Bitmap img = BitmapFactory.decodeResource(getResources(),R.drawable.treasure_2);
                 BitmapDescriptor bitmapDescriptor = BitmapDescriptorFactory.fromBitmap(img);
                 for (int i=0;i<treasureCoor.length/2;i++){
-                    mMap.addMarker( new MarkerOptions().position(new LatLng(treasureCoor[2*i],treasureCoor[2*i+1])).snippet("marker: "+i).title("asdasd").icon(bitmapDescriptor));
+                    mMap.addMarker( new MarkerOptions().position(new LatLng(treasureCoor[2*i],treasureCoor[2*i+1])).icon(bitmapDescriptor));
                 }
 
-                mMap.addMarker(new MarkerOptions().position(new LatLng(22.316434177817605,114.16926439851522)).icon(vectorToBitmap(R.drawable.ic_tag_faces_black_24dp)));
+                mMap.addCircle(new CircleOptions().center(new LatLng(22.316434177817605,114.16926439851522)).radius(15).strokeWidth(11).fillColor(0xff74a6ed).strokeColor(0xffffffff));
 
                 polyline= mMap.addPolyline(new PolylineOptions().addAll(PolyUtil.decode("utegCwtywTeI`Aa@FQsAOsA?[Kw@uBT}@JAMM@@Ne@Do@J")));
                 // Use a round cap at the start of the line.
@@ -502,8 +504,7 @@ public class MainActivity extends AppCompatActivity
 
 
         /*
-        Intent intent = new Intent(this, TestActivity.class);
-        startActivity(intent);
+
         */
 
     }
@@ -584,6 +585,17 @@ public class MainActivity extends AppCompatActivity
             for (int i = 0; i < discountMarkersArrayList.size(); i++) {
                 Discount tempD = discountMarkersArrayList.get(i);
                 Log.v("marker match", "markerID looop: " + tempD.getMarkerID());
+
+        customViewShop.findViewById(R.id.ss_Details).setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                // Dismiss the popup window
+                shopPop.dismiss();
+                Intent intent = new Intent(getApplicationContext(), TestActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
 
                 if (tempD.getMarkerID().equals(marker.getId())) {
