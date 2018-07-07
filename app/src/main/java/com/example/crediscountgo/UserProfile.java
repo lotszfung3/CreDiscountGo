@@ -16,11 +16,9 @@ public class UserProfile extends AppCompatActivity {
         setContentView(R.layout.activity_user_profile);
 
         List<Integer> creditCardIdList = new ArrayList<>();
-        creditCardIdList.add(new Integer(R.drawable.full_logo));
-        creditCardIdList.add(new Integer(R.drawable.full_logo));
-        creditCardIdList.add(new Integer(R.drawable.full_logo));
-        creditCardIdList.add(new Integer(R.drawable.full_logo));
-        creditCardIdList.add(new Integer(R.drawable.full_logo));
+        creditCardIdList.add(new Integer(R.drawable.hsbc_credit_card));
+        creditCardIdList.add(new Integer(R.drawable.dbs_credit_card));
+        creditCardIdList.add(new Integer(R.drawable.american_express_credit_card));
 
 
         RecyclerView creditCardRecyclerView = (RecyclerView) findViewById(R.id.credit_card_recycler_view);
