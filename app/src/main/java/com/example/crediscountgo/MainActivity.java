@@ -82,6 +82,7 @@ public class MainActivity extends AppCompatActivity
             chbox_c3,
             chbox_s1,
             chbox_s2;
+    private ArrayList<Card> cardList;
 
     private Boolean c1_val;
     private Boolean c2_val;
@@ -141,6 +142,13 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+
+        //List markerArrayList = new ArrayList<Marker>();
+        markerArrayList=new ArrayList<>(10);
+        //List discountMarkersArrayList = new ArrayList<Discount>();
+        discountMarkersArrayList=new ArrayList<>(10);
+
+
         setUpMap();
 
         c1_val = true;
@@ -148,43 +156,85 @@ public class MainActivity extends AppCompatActivity
         c3_val = true;
         s1_val = true;
         s2_val = true;
-
+        initCreditCard();
         maprlayout = (RelativeLayout) findViewById(R.id.maprl);
         setUpfilterBtn();
 
-        markerArrayList=new ArrayList<>(5);
-        discountMarkersArrayList=new ArrayList<>(5);
 
-        initDiscountMarkersArrayList();
+    }
+    private void initCreditCard(){
 
+        cardList = new ArrayList<Card>(10);
+        Card c1 = new Card("DBS", "drawable/dbs");
+        Card c2 = new Card("HSBC", "drawable/hsbc");
+        Card c3 = new Card("AE", "drawable/ae");
+
+        cardList.add(c1);
+        cardList.add(c2);
+        cardList.add(c3);
+
+    }
+    private String returnAddr(String markerID){
+        String result = "";
+
+        Geocoder gc = new Geocoder(MainActivity.this, Locale.ENGLISH);
+
+        List<Address> listAddr = null;
+
+        Log.v("addr:", "markerID: "+markerID);
+        for (int j=0; j<markerArrayList.size(); j++){
+            Marker tempM = markerArrayList.get(j);
+            Log.v("addr:", "tempM.getId(): "+tempM.getId());
+            if (markerID.equals(tempM.getId())){
+                Log.v("addr:", "Match: "+tempM.getId());
+                LatLng ll = tempM.getPosition();
+
+                try {
+                    listAddr = gc.getFromLocation(ll.latitude, ll.longitude, 1);
+                } catch (IOException e) {
+                    e.printStackTrace();
+
+                }
+                String addrLine = "" + listAddr.get(0).getAddressLine(0);
+
+                Log.v("addr:", addrLine);
+                result = addrLine;
+            }
+        }
+        return result;
 
 
 
     }
-
     private void initDiscountMarkersArrayList(){
-        Discount tempDis0 = new Discount("m0", "m0 Shop Name", "10% off", "LongDis of m0", "AE");
-        Discount tempDis1= new Discount("m1", "m1 Shop Name", "5% off", "LongDis of m1", "DBS");
-        Discount tempDis2= new Discount("m2", "m2 Shop Name", "20% off", "LongDis of m2", "HSBC");
-        Discount tempDis3= new Discount("m3", "m3 Shop Name",  "Half Price", "LongDis of m3", "AE");
-        Discount tempDis4= new Discount("m4", "m4 Shop Name", "15% off", "LongDis of m4", "AE");
-        Discount tempDis5= new Discount("m5", "m5 Shop Name", "2% off", "LongDis of m5", "AE");
-        Discount tempDis6= new Discount("m6", "m6 Shop Name", "30% off", "LongDis of m6", "AE");
+        Discount tempDis0= new Discount("m0", "Seaview Congee Shop", "10% off on any purchase", "LongDis of m0", "AE", "AE");
+        Discount tempDis1= new Discount("m1", "Dessert Restaurant", "$10 Discount", "LongDis of m1", "DBS", "DBS");
+        Discount tempDis2= new Discount("m2", "London Chinese Restaurant", "20% off for Purchases exceeding $200", "LongDis of m2", "HSBC", "HSBC");
+        Discount tempDis3= new Discount("m3", "Sasa",  "Half Price - specific products", "LongDis of m3", "AE", "AE");
+        Discount tempDis4= new Discount("m4", "Adidas", "15% off on any purchase", "LongDis of m4", "DBS", "DBS");
+        Discount tempDis5= new Discount("m5", "Langham Place", "5% off in specific stores", "LongDis of m5", "HSBC", "HSBC");
+        Discount tempDis6= new Discount("m6", "Ease House Cafe", "1 Free dessert per set dinner", "LongDis of m6", "AE", "AE");
         discountMarkersArrayList.add(tempDis0);
         discountMarkersArrayList.add(tempDis1);
         discountMarkersArrayList.add(tempDis2);
         discountMarkersArrayList.add(tempDis3);
         discountMarkersArrayList.add(tempDis4);
+        discountMarkersArrayList.add(tempDis5);
+        discountMarkersArrayList.add(tempDis6);
 
+        /*
         Geocoder gc = new Geocoder(MainActivity.this, Locale.ENGLISH);
         for (int i=0;i<discountMarkersArrayList.size();i++) {
             Discount tempD = discountMarkersArrayList.get(i);
 
             List<Address> listAddr = null;
 
+            Log.v("addr:", "tempD.getMarkerID(): "+tempD.getMarkerID());
             for (int j=0; j<markerArrayList.size(); j++){
                 Marker tempM = markerArrayList.get(j);
-                if (tempD.getMarkerID() == tempM.getId()){
+                Log.v("addr:", "tempM.getId(): "+tempM.getId());
+                if (tempD.getMarkerID().equals(tempM.getId())){
+                    Log.v("addr:", "Match: "+tempM.getId());
                     LatLng ll = tempM.getPosition();
 
                     try {
@@ -195,12 +245,14 @@ public class MainActivity extends AppCompatActivity
                     }
                     String addrLine = "" + listAddr.get(0).getAddressLine(0);
                     tempD.setShopAddrLine(addrLine);
+                    Log.v("addr:", tempD.getShopAddrLine());
                     discountMarkersArrayList.set(i, tempD);
                 }
             }
 
 
         }
+        */
 
 
 
@@ -346,6 +398,10 @@ public class MainActivity extends AppCompatActivity
         mMap.setOnInfoWindowClickListener(this);
         mMap.setOnMapClickListener(this);
         mMap.setOnMarkerClickListener(this);
+
+        initDiscountMarkersArrayList();
+
+
         try {
             // Customise the styling of the base map using a JSON object defined
             // in a raw resource file.
@@ -419,6 +475,7 @@ public class MainActivity extends AppCompatActivity
 
             }
         });
+
     }
     @Override
     public void onInfoWindowClick(Marker marker) {
@@ -472,51 +529,62 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+    public String findCardLogo(String card){
+        String result = "";
+        for (int i=0;i<cardList.size();i++) {
+            if (card.equals(cardList.get(i).getInitials())) {
+                result = cardList.get(i).getIconURL();
+            }
+        }
+        return result;
+    }
+
     @Override
     public boolean onMarkerClick(Marker marker) {
 
-        LayoutInflater inflater2 = (LayoutInflater) mContext.getSystemService(LAYOUT_INFLATER_SERVICE);
-        customViewShop = inflater2.inflate(R.layout.shopshortdetails, null);
 
-        shopPop = new PopupWindow(
-                customViewShop, RelativeLayout.LayoutParams.WRAP_CONTENT,
-                RelativeLayout.LayoutParams.WRAP_CONTENT
-        );
+        Log.v("Frankie", marker.getId());
+        if (marker.getId().equals("m3")) {
+            polyline.setPoints(PolyUtil.decode("utegCwtywTeI`Aa@FQsAOsA?[Kw@uBT}@JAMM@@Ne@Do@J"));
+            polyline.setVisible(true);
+        } else if (marker.getId().equals("m4")) {
+            polyline.setPoints(PolyUtil.decode("utegCwtywTeI`Aa@FQsAOsA?[Kw@E?G}@SsBUD"));
+            polyline.setVisible(true);
+        } else if (marker.getId().equals("m5")) {
+            polyline.setPoints(PolyUtil.decode("utegCwtywTwH~@"));
+            polyline.setVisible(true);
+        } else if (marker.getId().equals("m6")) {
+            polyline.setPoints(PolyUtil.decode("utegCwtywTeI`Aa@FQsAOsA?[Kw@FAG}@SuBKy@KeBAOj@G"));
+            polyline.setVisible(true);
+        } else
+            polyline.setVisible(false);
 
-        TextView shopName = (TextView) customViewShop.findViewById(R.id.ss_ShopName);
-        TextView shopAddr = (TextView) customViewShop.findViewById(R.id.ss_AddrLine);
-        TextView shopShortDis = (TextView) customViewShop.findViewById(R.id.ss_shortDis);
-        TextView shopCard = (TextView) customViewShop.findViewById(R.id.ss_creditCard);
-        Log.v("size",Integer.toString(discountMarkersArrayList.size()));
-        Log.v("marker match","target marker: "+marker.getId());
-        for (int i=0;i<discountMarkersArrayList.size();i++) {
-            Discount tempD = discountMarkersArrayList.get(i);
-            Log.v("marker match","markerID looop: "+tempD.getMarkerID());
-
-
-            if (tempD.getMarkerID().equals(marker.getId())) {
-                Log.v("marker match",tempD.getMarkerID());
-                Log.v("marker match",tempD.getShopName());
-                shopName.setText(tempD.getShopName());
-                shopAddr.setText(tempD.getShopAddrLine());
-                shopShortDis.setText(tempD.getShortDis());
-                shopCard.setText(tempD.getCard());
-            }
-
+        if (marker.getId().equals("m7") || marker.getId().equals("m8")) {
+            //do nothing
         }
-       
+        else {
+            LayoutInflater inflater2 = (LayoutInflater) mContext.getSystemService(LAYOUT_INFLATER_SERVICE);
+            customViewShop = inflater2.inflate(R.layout.shopshortdetails, null);
 
-        Button closeButton = (Button) customViewShop.findViewById(R.id.ss_close);
+            shopPop = new PopupWindow(
+                    customViewShop, RelativeLayout.LayoutParams.WRAP_CONTENT,
+                    RelativeLayout.LayoutParams.WRAP_CONTENT
+            );
 
-        // Set a click listener for the popup window close button
-        closeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Dismiss the popup window
+            TextView shopName = (TextView) customViewShop.findViewById(R.id.ss_ShopName);
 
-                shopPop.dismiss();
-            }
-        });
+            TextView shopAddr = (TextView) customViewShop.findViewById(R.id.ss_AddrLine);
+            TextView shopShortDis = (TextView) customViewShop.findViewById(R.id.ss_shortDis);
+            TextView shopCard = (TextView) customViewShop.findViewById(R.id.ss_creditCard);
+
+            ImageView shopCardLogo = (ImageView) customViewShop.findViewById(R.id.ss_cardLogo);
+
+            Log.v("size", Integer.toString(discountMarkersArrayList.size()));
+            Log.v("marker match", "target marker: " + marker.getId());
+
+            for (int i = 0; i < discountMarkersArrayList.size(); i++) {
+                Discount tempD = discountMarkersArrayList.get(i);
+                Log.v("marker match", "markerID looop: " + tempD.getMarkerID());
 
         customViewShop.findViewById(R.id.ss_Details).setOnClickListener(new View.OnClickListener(){
             @Override
@@ -528,30 +596,39 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        shopPop.showAtLocation(maprlayout, Gravity.CENTER, 0, 0);
 
 
+                if (tempD.getMarkerID().equals(marker.getId())) {
+                    Log.v("marker match", tempD.getMarkerID());
+                    Log.v("marker match", tempD.getShopName());
+                    shopName.setText(tempD.getShopName());
+                    //shopAddr.setText(tempD.getShopAddrLine());
+                    shopAddr.setText(returnAddr(marker.getId()));
+                    shopShortDis.setText(tempD.getShortDis());
+                    shopCard.setText(tempD.getCard());
 
-        Log.v("Frankie",marker.getId());
-        if(marker.getId().equals("m3")) {
-            polyline.setPoints(PolyUtil.decode("utegCwtywTeI`Aa@FQsAOsA?[Kw@uBT}@JAMM@@Ne@Do@J"));
-            polyline.setVisible(true);
+                    Log.v("marker match", "card: " + findCardLogo(tempD.getCard()));
+
+                    int imageResource = getResources().getIdentifier(findCardLogo(tempD.getCard()), null, getPackageName());
+
+                    Drawable drawableCard = getResources().getDrawable(imageResource);
+                    shopCardLogo.setImageDrawable(drawableCard);
+
+
+                }
+
+            }
+
+            shopPop.setOutsideTouchable(true);
+            shopPop.showAtLocation(maprlayout, Gravity.TOP, 0, 5);
+
         }
-        else if (marker.getId().equals("m4")) {
-            polyline.setPoints(PolyUtil.decode("utegCwtywTeI`Aa@FQsAOsA?[Kw@E?G}@SsBUD"));
-            polyline.setVisible(true);
-        }
-        else if (marker.getId().equals("m5")) {
-            polyline.setPoints(PolyUtil.decode("utegCwtywTwH~@"));
-            polyline.setVisible(true);
-        }
-        else if (marker.getId().equals("m6")) {
-            polyline.setPoints(PolyUtil.decode("utegCwtywTeI`Aa@FQsAOsA?[Kw@FAG}@SuBKy@KeBAOj@G"));
-            polyline.setVisible(true);
-        }
-        else
-            polyline.setVisible(false);
         return false;
+
+
+
+
+
     }
     private BitmapDescriptor vectorToBitmap(@DrawableRes int id) {
         Drawable vectorDrawable = ResourcesCompat.getDrawable(getResources(), id, null);

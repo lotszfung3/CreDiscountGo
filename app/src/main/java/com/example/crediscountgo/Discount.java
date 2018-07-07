@@ -13,15 +13,27 @@ public class Discount {
     String shortDis;
     String longDis;
     String card;
+    String issuer;
+    String cardScheme;
 
 
-    public Discount(String mID, String sn, String sd, String ld, String c){
+    public Discount(String mID, String sn, String sd, String ld, String c, String i){
         markerID = mID;
         shopName = sn;
         shortDis = sd;
         longDis = ld;
         card = c;
+        issuer = i;
 
+    }
+    public String getIssuer(){
+        return issuer;
+    }
+    public String getCardScheme(){
+        return cardScheme;
+    }
+    public void setCardScheme(String scs){
+        cardScheme = scs;
     }
     public String getMarkerID(){
         return markerID;
