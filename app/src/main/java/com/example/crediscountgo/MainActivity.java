@@ -385,14 +385,14 @@ public class MainActivity extends AppCompatActivity
                 for(int i=0;i<markerCoor.length/2;i++) {
                     if(i<3)
 
-                        markerArrayList.add( mMap.addMarker(new MarkerOptions().position(new LatLng(markerCoor[2*i],markerCoor[2*i+1])).snippet("marker: "+i).title("asdasd").icon(vectorToBitmap(R.drawable.ic_local_dining_black_24dp))));
+                        markerArrayList.add( mMap.addMarker(new MarkerOptions().position(new LatLng(markerCoor[2*i],markerCoor[2*i+1])).icon(vectorToBitmap(R.drawable.ic_local_dining_black_24dp))));
                     else
-                        markerArrayList.add(mMap.addMarker(new MarkerOptions().position(new LatLng(markerCoor[2 * i], markerCoor[2 * i + 1])).snippet("marker: " + i).title("asdasd").icon(vectorToBitmap((R.drawable.ic_store_mall_directory_black_24dp)))));
+                        markerArrayList.add(mMap.addMarker(new MarkerOptions().position(new LatLng(markerCoor[2 * i], markerCoor[2 * i + 1])).icon(vectorToBitmap((R.drawable.ic_store_mall_directory_black_24dp)))));
                 }
                 Bitmap img = BitmapFactory.decodeResource(getResources(),R.drawable.treasure_2);
                 BitmapDescriptor bitmapDescriptor = BitmapDescriptorFactory.fromBitmap(img);
                 for (int i=0;i<treasureCoor.length/2;i++){
-                    mMap.addMarker( new MarkerOptions().position(new LatLng(treasureCoor[2*i],treasureCoor[2*i+1])).snippet("marker: "+i).title("asdasd").icon(bitmapDescriptor));
+                    mMap.addMarker( new MarkerOptions().position(new LatLng(treasureCoor[2*i],treasureCoor[2*i+1])).icon(bitmapDescriptor));
                 }
 
                 mMap.addMarker(new MarkerOptions().position(new LatLng(22.316434177817605,114.16926439851522)).icon(vectorToBitmap(R.drawable.ic_tag_faces_black_24dp)));
@@ -444,8 +444,7 @@ public class MainActivity extends AppCompatActivity
 
 
         /*
-        Intent intent = new Intent(this, TestActivity.class);
-        startActivity(intent);
+
         */
 
     }
@@ -512,6 +511,16 @@ public class MainActivity extends AppCompatActivity
                 // Dismiss the popup window
 
                 shopPop.dismiss();
+            }
+        });
+
+        customViewShop.findViewById(R.id.ss_Details).setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                // Dismiss the popup window
+                shopPop.dismiss();
+                Intent intent = new Intent(getApplicationContext(), TestActivity.class);
+                startActivity(intent);
             }
         });
 
