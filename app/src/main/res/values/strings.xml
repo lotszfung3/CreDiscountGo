@@ -8,6 +8,17 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
+
+    <string name="filter_creditCardHeading">Credit Card</string>
+    <string name="filter_catHeading">Shops</string>
+
+    <string name="cc_HSBCV">HSBC VISA</string>
+    <string name="cc_AE">AE</string>
+    <string name="cc_DBSMC">DBS Mastercard</string>
+    <string name="s_shop">Shops</string>
+    <string name="s_dining">Dining</string>
+    <string name="filterHeading">Apply Filter</string>
+
     <string name="title_activity_main2">Main2Activity</string>
     <string name="title_activity_test">TestActivity</string>
 </resources>
