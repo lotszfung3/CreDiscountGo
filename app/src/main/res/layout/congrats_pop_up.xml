@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/tipsview"
+    android:layout_width="150dp"
+    android:layout_height="wrap_content"
+    android:background="@drawable/pink_rounded_bg"
+    android:orientation="vertical"
+    android:padding="4dp"
+    android:clipChildren="false"
+    android:clipToPadding="false">
+
+
+    <ImageView
+        android:id="@+id/tips_icon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_notifications_gray_24dp" />
+
+    <TextView
+        android:id="@+id/congrats_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/congrats"
+        android:textAlignment="center"
+        android:textColor="#DFE2E3"/>
+    <TextView
+        android:id="@+id/congrats_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/won"
+        android:textAlignment="center"
+        android:textColor="#DFE2E3"/>
+    <TextView
+        android:id="@+id/click"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/click_for_details"
+        android:textAlignment="center"
+        android:textColor="#DFE2E3"/>
+
+
+
+
+
+</LinearLayout>

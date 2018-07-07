@@ -8,4 +8,9 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
+    <string name="surprise_tips">Tips:</string>
+    <string name="tips_message">Click the chest to unlock!</string>
+    <string name="congrats">Congratulations!</string>
+    <string name="won">You\'ve won a prize!</string>
+    <string name="click_for_details">Click to view more details</string>
 </resources>

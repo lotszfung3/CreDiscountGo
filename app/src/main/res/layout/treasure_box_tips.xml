@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/tipsview"
+    android:layout_width="150dp"
+    android:layout_height="wrap_content"
+    android:background="@drawable/blue_rounded_bg"
+    android:orientation="vertical"
+    android:padding="4dp"
+    android:clipChildren="false"
+    android:clipToPadding="false">
+
+
+    <ImageView
+        android:id="@+id/tips_icon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_wb_incandescent_gray_24dp" />
+
+    <TextView
+        android:id="@+id/tips_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/surprise_tips"
+        android:textAlignment="center"
+        android:textColor="#DFE2E3"/>
+    <TextView
+        android:id="@+id/tips_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/tips_message"
+        android:textAlignment="center"
+        android:textColor="#DFE2E3"/>
+
+
+
+
+</LinearLayout>

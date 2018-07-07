@@ -24,6 +24,7 @@ import com.google.ar.sceneform.HitTestResult;
 import com.google.ar.sceneform.Node;
 import com.google.ar.sceneform.math.Vector3;
 import com.google.ar.sceneform.rendering.ModelRenderable;
+import com.google.ar.sceneform.rendering.ViewRenderable;
 import com.google.ar.sceneform.ux.ArFragment;
 import com.google.ar.sceneform.ux.TransformableNode;
 
@@ -34,9 +35,11 @@ public class ARActivity extends AppCompatActivity {
     private static final double MIN_OPENGL_VERSION = 3.1;
 
     private ArFragment arFragment;
-    private ModelRenderable andyRenderable;
-    private ModelRenderable heartRenderable;
+    private ModelRenderable chestRenderable;
+    private ModelRenderable surpriseRenderable;
+    private ViewRenderable tipsRenderable, congratsRenerable;
     private boolean isInit = false;
+    private Surprise surprise;
 
     @Override
     @SuppressWarnings({"AndroidApiChecker", "FutureReturnValueIgnored"})
@@ -52,12 +55,14 @@ public class ARActivity extends AppCompatActivity {
         setContentView(R.layout.activity_ar);
         arFragment = (ArFragment) getSupportFragmentManager().findFragmentById(R.id.ux_fragment);
 
+
+
         // When you build a Renderable, Sceneform loads its resources in the background while returning
         // a CompletableFuture. Call thenAccept(), handle(), or check isDone() before calling get().
         ModelRenderable.builder()
                 .setSource(this, Uri.parse("model.sfb"))
                 .build()
-                .thenAccept(renderable -> heartRenderable = renderable)
+                .thenAccept(renderable -> surpriseRenderable = renderable)
                 .exceptionally(
                         throwable -> {
                             Toast toast =
@@ -66,10 +71,11 @@ public class ARActivity extends AppCompatActivity {
                             toast.show();
                             return null;
                         });
+
         ModelRenderable.builder()
                 .setSource(this, Uri.parse("NOVELO_CHEST.sfb"))
                 .build()
-                .thenAccept(renderable -> andyRenderable = renderable)
+                .thenAccept(renderable -> chestRenderable = renderable)
                 .exceptionally(
                         throwable -> {
                             Toast toast =
@@ -78,6 +84,15 @@ public class ARActivity extends AppCompatActivity {
                             toast.show();
                             return null;
                         });
+
+        ViewRenderable.builder()
+                .setView(this, R.layout.treasure_box_tips)
+                .build()
+                .thenAccept(renderable -> tipsRenderable = renderable);
+        ViewRenderable.builder()
+                .setView(this, R.layout.congrats_pop_up)
+                .build()
+                .thenAccept(renderable -> congratsRenerable = renderable);
 
         /**
          arFragment.setOnTapArPlaneListener(
@@ -126,8 +141,10 @@ public class ARActivity extends AppCompatActivity {
                             arFragment.onUpdate(frameTime);
                         });
 
+    }
 
-
+    public Surprise createSurprise(){
+        return new MovieDiscount(this);
     }
 
     @Override
@@ -144,7 +161,7 @@ public class ARActivity extends AppCompatActivity {
             for (HitResult hit : hits){
                 Trackable trackable = hit.getTrackable();
                 if (!isInit){
-                    if (andyRenderable == null) {
+                    if (chestRenderable == null) {
                         return;
                     }
 
@@ -159,22 +176,51 @@ public class ARActivity extends AppCompatActivity {
 
                     Node ground = new Node();
                     ground.setParent(base);
-                    ground.setLocalPosition(new Vector3(0.0f, 0.5f, 0.0f));
+                    ground.setLocalPosition(new Vector3(0.0f, 0.3f, 0.0f));
 
                     // Create the transformable andy and add it to the anchor.
-                    Node andy = new Node();
-                    andy.setParent(ground);
-                    andy.setRenderable(andyRenderable);
-                    andy.setLocalScale(new Vector3(1f, 1f, 1f));
-                    andy.setOnTapListener(new Node.OnTapListener() {
+                    Node chest = new Node();
+                    chest.setParent(ground);
+                    chest.setRenderable(chestRenderable);
+                    chest.setLocalScale(new Vector3(1f, 1f, 1f));
+
+                    Node tips = new Node();
+                    tips.setParent(chest);
+                    tips.setRenderable(tipsRenderable);
+                    tips.setLocalPosition(new Vector3(0.0f, 0.3f, 0.0f));
+
+
+                    chest.setOnTapListener(new Node.OnTapListener() {
                         @Override
                         public void onTap(HitTestResult hitTestResult, MotionEvent motionEvent) {
                             Log.d(TAG, "3d obj is tapped");
-                            andy.setRenderable(heartRenderable);
-                            andy.setLocalScale(new Vector3(0.8f, 0.8f, 0.8f));
-                            andy.setLocalPosition(new Vector3(0.0f, 0.18f, 0.0f));
+                            chest.removeChild(tips);
+                            ground.removeChild(chest);
+
+                            Node surpriseNode = new Node();
+                            surpriseNode.setParent(ground);
+                            surpriseNode.setRenderable(surpriseRenderable);
+                            surpriseNode.setLocalScale(new Vector3(0.8f, 0.8f, 0.8f));
+                            surpriseNode.setLocalPosition(new Vector3(0.0f, 0.18f, 0.0f));
+
+                            surpriseNode.setOnTapListener(new Node.OnTapListener() {
+                                @Override
+                                public void onTap(HitTestResult hitTestResult, MotionEvent motionEvent) {
+                                    Log.d(TAG, "surpriseNode is tapped");
+                                }
+                            });
+
+
+
+                            Node tips = new Node();
+                            tips.setParent(surpriseNode);
+                            tips.setRenderable(congratsRenerable);
+                            tips.setLocalPosition(new Vector3(0.0f, 0.3f, 0.0f));
                         }
                     });
+
+
+
                     isInit=true;
                 }
 

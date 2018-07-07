@@ -1,1 +1,3 @@
-include ':app'
+include ':app', ':qrcode', ':libzx'
+include ':android'
+include ':libzx2'

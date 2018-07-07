@@ -3,7 +3,11 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/CreDiscountGo.iml" filepath="$PROJECT_DIR$/CreDiscountGo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/android/android.iml" filepath="$PROJECT_DIR$/android/android.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/libzx/libzx.iml" filepath="$PROJECT_DIR$/libzx/libzx.iml" />
+      <module fileurl="file://$PROJECT_DIR$/libzx2/libzx2.iml" filepath="$PROJECT_DIR$/libzx2/libzx2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/qrcode/qrcode.iml" filepath="$PROJECT_DIR$/qrcode/qrcode.iml" />
     </modules>
   </component>
 </project>
