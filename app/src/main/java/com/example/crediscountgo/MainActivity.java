@@ -48,6 +48,8 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.Circle;
+import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.JointType;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
@@ -396,7 +398,7 @@ public class MainActivity extends AppCompatActivity
                     mMap.addMarker( new MarkerOptions().position(new LatLng(treasureCoor[2*i],treasureCoor[2*i+1])).icon(bitmapDescriptor));
                 }
 
-                mMap.addMarker(new MarkerOptions().position(new LatLng(22.316434177817605,114.16926439851522)).icon(vectorToBitmap(R.drawable.ic_tag_faces_black_24dp)));
+                mMap.addCircle(new CircleOptions().center(new LatLng(22.316434177817605,114.16926439851522)).radius(15).strokeWidth(11).fillColor(0xff74a6ed).strokeColor(0xffffffff));
 
                 polyline= mMap.addPolyline(new PolylineOptions().addAll(PolyUtil.decode("utegCwtywTeI`Aa@FQsAOsA?[Kw@uBT}@JAMM@@Ne@Do@J")));
                 // Use a round cap at the start of the line.
