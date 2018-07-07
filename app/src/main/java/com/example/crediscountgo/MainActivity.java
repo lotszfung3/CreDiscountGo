@@ -1,5 +1,6 @@
 package com.example.crediscountgo;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -60,7 +61,8 @@ public class MainActivity extends AppCompatActivity
 
         setUpFloatingBtn();
 
-
+        Intent intent = new Intent(this, FriendListActivity.class);
+        startActivity(intent);
     }
 
     private void setUpFloatingBtn() {
