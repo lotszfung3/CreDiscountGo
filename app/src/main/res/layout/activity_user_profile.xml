@@ -310,15 +310,32 @@
             </RelativeLayout>
 
         </LinearLayout>
+        <TextView
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/darker_gray"
+            android:text="@string/credit_cards"
+            android:textSize="20dp"/>
 
         <android.support.v7.widget.RecyclerView
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:id="@+id/credit_card_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
 
-        <android.support.v7.widget.RecyclerView
+        <TextView
             android:layout_marginTop="20dp"
+            android:layout_marginLeft="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/darker_gray"
+            android:text="@string/wallet"
+            android:textSize="20dp"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_marginTop="5dp"
             android:id="@+id/wallet_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>

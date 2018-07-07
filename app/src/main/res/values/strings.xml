@@ -18,4 +18,6 @@
     <string name="partnership">partners</string>
     <string name="default_notification_channel_id">channelID</string>
     <string name="friend_list_title">Friends</string>
+    <string name="credit_cards">Credit Cards</string>
+    <string name="wallet">Wallet</string>
 </resources>
