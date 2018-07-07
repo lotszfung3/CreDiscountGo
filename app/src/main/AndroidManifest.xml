@@ -9,6 +9,16 @@
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
+
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <!--
+         This tag indicates that this application requires ARCore. This results in the application
+        only being visible in the Google Play Store on devices that support ARCore.
+    -->
+    <uses-feature
+        android:name="android.hardware.camera.ar"
+        android:required="true" />
     <!-- [START fcm_default_icon] -->
     <!--
          Set custom default icon. This is used when no icon is set for incoming notification messages.
