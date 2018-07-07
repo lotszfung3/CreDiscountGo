@@ -71,7 +71,8 @@
         <!-- [END firebase_service] -->
         <!-- [START firebase_iid_service] -->
         <!-- [END firebase_iid_service] -->
-        <activity android:name=".FriendListActivity"></activity>
+        <activity android:name=".FriendListActivity" />
+        <activity android:name=".UserProfile"></activity>
     </application>
 
 </manifest>
