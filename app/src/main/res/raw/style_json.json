@@ -8,14 +8,6 @@
     ]
   },
   {
-    "elementType": "labels",
-    "stylers": [
-      {
-        "visibility": "off"
-      }
-    ]
-  },
-  {
     "elementType": "labels.text.fill",
     "stylers": [
       {
@@ -42,14 +34,6 @@
   },
   {
     "featureType": "administrative.land_parcel",
-    "stylers": [
-      {
-        "visibility": "off"
-      }
-    ]
-  },
-  {
-    "featureType": "administrative.land_parcel",
     "elementType": "geometry.stroke",
     "stylers": [
       {
@@ -67,14 +51,6 @@
     ]
   },
   {
-    "featureType": "administrative.neighborhood",
-    "stylers": [
-      {
-        "visibility": "off"
-      }
-    ]
-  },
-  {
     "featureType": "landscape.natural",
     "elementType": "geometry",
     "stylers": [
@@ -85,30 +61,10 @@
   },
   {
     "featureType": "poi",
-    "stylers": [
-      {
-        "visibility": "on"
-      }
-    ]
-  },
-  {
-    "featureType": "poi",
     "elementType": "geometry",
     "stylers": [
       {
         "color": "#dfd2ae"
-      },
-      {
-        "visibility": "on"
-      }
-    ]
-  },
-  {
-    "featureType": "poi",
-    "elementType": "labels",
-    "stylers": [
-      {
-        "visibility": "on"
       }
     ]
   },
@@ -118,32 +74,6 @@
     "stylers": [
       {
         "color": "#93817c"
-      }
-    ]
-  },
-  {
-    "featureType": "poi.attraction",
-    "stylers": [
-      {
-        "visibility": "on"
-      }
-    ]
-  },
-  {
-    "featureType": "poi.attraction",
-    "elementType": "geometry",
-    "stylers": [
-      {
-        "visibility": "on"
-      }
-    ]
-  },
-  {
-    "featureType": "poi.attraction",
-    "elementType": "labels",
-    "stylers": [
-      {
-        "visibility": "on"
       }
     ]
   },
@@ -257,23 +187,6 @@
   },
   {
     "featureType": "transit.station",
-    "elementType": "geometry",
-    "stylers": [
-      {
-        "color": "#dfd2ae"
-      }
-    ]
-  },
-  {
-    "featureType": "water",
-    "stylers": [
-      {
-        "visibility": "on"
-      }
-    ]
-  },
-  {
-    "featureType": "water",
     "elementType": "geometry",
     "stylers": [
       {

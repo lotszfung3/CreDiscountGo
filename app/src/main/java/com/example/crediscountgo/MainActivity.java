@@ -1,14 +1,26 @@
 package com.example.crediscountgo;
 
+
 import android.content.Context;
-import android.content.SharedPreferences;
+import android.app.ActionBar;
+import android.content.Intent;
+
 import android.content.res.Resources;
-import android.graphics.Color;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+
+import android.graphics.Canvas;
 import android.os.Build;
+
+import android.graphics.drawable.Drawable;
+
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.DrawableRes;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.v4.content.res.ResourcesCompat;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -17,6 +29,7 @@ import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
+
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,27 +42,38 @@ import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.google.android.gms.internal.maps.zzt;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.UiSettings;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.CircleOptions;
+import com.google.android.gms.maps.model.JointType;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.android.gms.maps.model.RoundCap;
+import com.google.maps.android.PolyUtil;
+
 
 import java.util.ArrayList;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener,OnMapReadyCallback {
+        implements NavigationView.OnNavigationItemSelectedListener,OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener, GoogleMap.OnMapClickListener,GoogleMap.OnMarkerClickListener {
     private GoogleMap mMap;
+
     private Context mContext;
     private PopupWindow filterPop;
 
-    private double markerCoor[] = new double[20];
-    private ArrayList<Circle> circleArrayList;
     private FloatingActionButton floatingActionButton;
     private RelativeLayout maprlayout;
 
@@ -71,8 +95,28 @@ public class MainActivity extends AppCompatActivity
     private FloatingActionButton filterActionButton;
     LatLng KT = new LatLng(22.3088477, 114.217971);
 
+    private Polyline polyline;
+    private static final int COLOR_BLACK_ARGB = 0xffccaa70;
+    private static final int POLYLINE_STROKE_WIDTH_PX = 15;
+    private double markerCoor[] = {
+            22.319960, 114.171100,
+            22.317043339029887,114.1712237522006,
+            22.31716895493705,114.17005430907011,
+            22.319859279350407,114.16982866823673,
+            22.318747053294828,114.1710225865245
+
+    };
+    private double treasureCoor[]={
+            22.320154237980244,114.17336348444223,
+            22.322470773620328,114.16858848184347
+    };
+    private ArrayList<Marker> markerArrayList;
+    LatLng MK = new LatLng(22.318188, 114.170216);
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -91,6 +135,7 @@ public class MainActivity extends AppCompatActivity
         setUpMap();
 
 
+
         c1_val = true;
         c2_val = true;
         c3_val = true;
@@ -99,6 +144,9 @@ public class MainActivity extends AppCompatActivity
 
 
         setUpfilterBtn();
+
+        markerArrayList=new ArrayList<>(5);
+
 
 
     }
@@ -115,7 +163,7 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View view) {
 
                 LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(LAYOUT_INFLATER_SERVICE);
-                View customView = inflater.inflate(R.layout.filterpopup,null);
+                View customView = inflater.inflate(R.layout.filterpopup, null);
 
                 filterPop = new PopupWindow(
                         customView, RelativeLayout.LayoutParams.WRAP_CONTENT,
@@ -139,8 +187,7 @@ public class MainActivity extends AppCompatActivity
                 filterRadioGroupS = (RadioGroup) customView.findViewById(R.id.radioGShops);
 
 
-
-                if(Build.VERSION.SDK_INT>=21){
+                if (Build.VERSION.SDK_INT >= 21) {
                     filterPop.setElevation(5.0f);
                 }
 
@@ -163,10 +210,11 @@ public class MainActivity extends AppCompatActivity
                 });
 
 
-                filterPop.showAtLocation(maprlayout, Gravity.CENTER,0,0);
-
+                filterPop.showAtLocation(maprlayout, Gravity.CENTER, 0, 0);
 
             }
+
+
         });
     }
 
@@ -227,14 +275,6 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
     private void setUpMap(){
-        Random rand= new Random();
-        for (int i=0;i < 10 ;i++)
-        {
-
-            markerCoor[2*i]= KT.latitude + rand.nextGaussian()/1000;
-            markerCoor[2*i+1]= KT.longitude + rand.nextGaussian()/1000;
-        }
-        circleArrayList = new ArrayList<>(10);
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -245,7 +285,12 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
+
         mMap = googleMap;
+        mMap.getUiSettings().setMapToolbarEnabled(false);
+        mMap.setOnInfoWindowClickListener(this);
+        mMap.setOnMapClickListener(this);
+        mMap.setOnMarkerClickListener(this);
         try {
             // Customise the styling of the base map using a JSON object defined
             // in a raw resource file.
@@ -263,12 +308,44 @@ public class MainActivity extends AppCompatActivity
         LatLng HK = new LatLng(22.2829369,114.1828038);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(HK,10));
 
-        // Add circle
-        for(int i=0;i<markerCoor.length/2;i++) {
+        // Add markers
+        mMap.addCircle(new CircleOptions().center(new LatLng(22.316434177817605,114.16926439851522)).radius(10));
+        Marker marker = null;
 
-            CircleOptions circleOptions = new CircleOptions().center(new LatLng(markerCoor[2*i],markerCoor[2*i+1])).radius(30).strokeWidth(3).fillColor(Color.argb(128, 255, 0, 0));
-            circleArrayList.add(mMap.addCircle(circleOptions));
+        for(int i=0;i<markerCoor.length/2;i++) {
+            if(i<3)
+            {
+                marker = mMap.addMarker(new MarkerOptions().position(new LatLng(markerCoor[2*i],markerCoor[2*i+1])).snippet("marker: "+i).title("asdasd").icon(vectorToBitmap(R.drawable.ic_local_dining_black_24dp)));
+                marker.setTag(i);
+                markerArrayList.add(marker);
+            }else {
+                marker = mMap.addMarker(new MarkerOptions().position(new LatLng(markerCoor[2 * i], markerCoor[2 * i + 1])).snippet("marker: " + i).title("asdasd").icon(vectorToBitmap((R.drawable.ic_store_mall_directory_black_24dp))));
+                marker.setTag(i);
+                markerArrayList.add(marker);
+            }
         }
+        Bitmap img = BitmapFactory.decodeResource(getResources(),R.drawable.treasure_2);
+        BitmapDescriptor bitmapDescriptor = BitmapDescriptorFactory.fromBitmap(img);
+        for (int i=0;i<treasureCoor.length/2;i++){
+            mMap.addMarker( new MarkerOptions().position(new LatLng(treasureCoor[2*i],treasureCoor[2*i+1])).snippet("marker: "+i).title("asdasd").icon(bitmapDescriptor));
+        }
+
+
+
+
+
+        polyline= mMap.addPolyline(new PolylineOptions().addAll(PolyUtil.decode("utegCwtywTeI`Aa@FQsAOsA?[Kw@uBT}@JAMM@@Ne@Do@J")));
+        // Use a round cap at the start of the line.
+        polyline.setStartCap(new RoundCap());
+
+
+        polyline.setEndCap(new RoundCap());
+        polyline.setWidth(POLYLINE_STROKE_WIDTH_PX);
+        polyline.setColor(COLOR_BLACK_ARGB);
+        polyline.setJointType(JointType.ROUND);
+        polyline.setWidth(15);
+        polyline.setVisible(false);
+
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
@@ -281,10 +358,61 @@ public class MainActivity extends AppCompatActivity
     private void initCameraPosition()
     {
         CameraPosition cameraPosition = new CameraPosition.Builder()
-                .target(KT)      // Sets the center of the map to Mountain View
-                .zoom(16.5f)                   // Sets the zoom
+                .target(MK)      // Sets the center of the map to Mountain View
+                .zoom(17f)                   // Sets the zoom
                 .tilt(30)                   // Sets the tilt of the camera to 30 degrees
                 .build();                   // Creates a CameraPosition from the builder
         mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition),2000,null);
+    }
+    @Override
+    public void onInfoWindowClick(Marker marker) {
+        Log.v("frankie","asdasdsa");
+        Toast.makeText(this, "Info window clicked",
+                Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, TestActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onMapClick(LatLng latLng) {
+        Log.d("Frankie",latLng.latitude+""+latLng.longitude);
+    }
+    private void filterMarkers(int id)
+    {
+        boolean mask1=(id==1 || id==3);
+        boolean mask2=(id>1);
+
+            for (int i=0;i<markerArrayList.size();i++) {
+                if (i < 3)
+                    markerArrayList.get(i).setVisible(mask1);
+                else
+                    markerArrayList.get(i).setVisible(mask2);
+            }
+
+
+    }
+
+    @Override
+    public boolean onMarkerClick(Marker marker) {
+        if((int)marker.getTag()==3) {
+            polyline.setPoints(PolyUtil.decode("utegCwtywTeI`Aa@FQsAOsA?[Kw@uBT}@JAMM@@Ne@Do@J"));
+            polyline.setVisible(true);
+        }
+        else if ((int)marker.getTag()==4) {
+            polyline.setPoints(PolyUtil.decode("utegCwtywTeI`Aa@FQsAOsA?[Kw@E?G}@SsBUD"));
+            polyline.setVisible(true);
+        }
+        else
+            polyline.setVisible(false);
+        return false;
+    }
+    private BitmapDescriptor vectorToBitmap(@DrawableRes int id) {
+        Drawable vectorDrawable = ResourcesCompat.getDrawable(getResources(), id, null);
+        Bitmap bitmap = Bitmap.createBitmap(vectorDrawable.getIntrinsicWidth(),
+                vectorDrawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        vectorDrawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        vectorDrawable.draw(canvas);
+        return BitmapDescriptorFactory.fromBitmap(bitmap);
     }
 }
