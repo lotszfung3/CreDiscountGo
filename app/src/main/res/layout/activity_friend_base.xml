@@ -10,7 +10,7 @@
     tools:context=".UserProfile">
 
     <include
-        layout="@layout/app_bar_user_profile"
+        layout="@layout/app_bar_friend_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

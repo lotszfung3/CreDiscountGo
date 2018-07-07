@@ -39,6 +39,9 @@ public class UserProfile extends AppCompatActivity implements NavigationView.OnN
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
         List<Integer> creditCardIdList = new ArrayList<>();
         creditCardIdList.add(new Integer(R.drawable.hsbc_credit_card));
         creditCardIdList.add(new Integer(R.drawable.dbs_credit_card));
@@ -80,7 +83,7 @@ public class UserProfile extends AppCompatActivity implements NavigationView.OnN
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout1);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -132,7 +135,7 @@ public class UserProfile extends AppCompatActivity implements NavigationView.OnN
 
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout1);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }

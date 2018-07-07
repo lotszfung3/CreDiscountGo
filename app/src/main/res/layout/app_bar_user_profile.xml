@@ -18,14 +18,14 @@
             android:layout_height="?attr/actionBarSize"
             android:background="#FFFFFF"
             app:popupTheme="@style/AppTheme.PopupOverlay" >
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/full_logo"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/full_logo"/>
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/activity_maps" />
+    <include layout="@layout/activity_user_profile" />
 
 
 </LinearLayout>
