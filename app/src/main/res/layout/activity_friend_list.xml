@@ -9,17 +9,50 @@
     <TextView
         android:id="@+id/friend_list_title_text_view"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="wrap_content"
         android:text="@string/friend_list_title"
         android:textAlignment="textStart"
-        android:textSize="40sp" />
+        android:textSize="14sp"
+        android:textColor="#1e1e1e"
+        android:padding="12dp"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/friend_list_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/friend_list_title_text_view" />
+
+    <android.support.constraint.ConstraintLayout
+        app:layout_constraintBottom_toBottomOf="@id/friend_list_recycler_view"
+        android:orientation="horizontal"
+        android:layout_margin="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:id="@+id/constrainLayout">
+
+        <Button
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintHorizontal_bias="0.25"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+
+            android:background="#0051ff"
+            android:textColor="#FFF"
+            android:text="Gift" />
+        <Button
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintHorizontal_bias="0.75"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="#0051ff"
+            android:textColor="#FFF"
+            android:text="Exchange" />
+
+    </android.support.constraint.ConstraintLayout>
 </android.support.constraint.ConstraintLayout>

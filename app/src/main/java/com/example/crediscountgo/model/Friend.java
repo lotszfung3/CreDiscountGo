@@ -33,12 +33,12 @@ public class Friend {
     public static List<Friend> generateSampleFriendList(){
         List<Friend> friends = new ArrayList<>();
 
-        friends.add(new Friend(R.drawable.ic_add_black_24dp,"Ben", "HKU", "CS", "Software Developer"));
-        friends.add(new Friend(R.drawable.ic_launcher_background,"Sunday", "HKU", "MAJOR", "ROLE"));
-        friends.add(new Friend(R.drawable.ic_launcher_foreground,"Frankie", "HKU", "MAJOR", "ROLE"));
-        friends.add(new Friend(R.drawable.common_google_signin_btn_icon_dark,"Elvis", "HKU", "MAJOR", "ROLE"));
-        friends.add(new Friend(R.drawable.common_google_signin_btn_icon_dark_normal,"Olivia", "HKU", "MAJOR", "ROLE"));
-        friends.add(new Friend(R.drawable.logo_icon,"Kelvin", "HKU", "MAJOR", "ROLE"));
+        friends.add(new Friend(R.drawable.ben_choi,"Ben Choi", "HKU", "CS", "Software Developer"));
+        friends.add(new Friend(R.drawable.sunday_wong,"Sunday Wong", "HKU", "CS", "Software Develope"));
+        friends.add(new Friend(R.drawable.ic_launcher_foreground,"Frankie Lo", "HKU", "CS", "Software Develope"));
+        friends.add(new Friend(R.drawable.elvis_ngai,"Elvis Ngai", "HKU", "MAJOR", "ROLE"));
+        friends.add(new Friend(R.drawable.olivia_lai,"Olivia Lai", "HKU", "CS", "Software Develope"));
+        friends.add(new Friend(R.drawable.kelvin_wong,"Kelvin Wong", "HKU", "MAJOR", "ROLE"));
 
         return friends;
     }
