@@ -2,7 +2,6 @@ package com.example.crediscountgo;
 
 
 import android.content.Context;
-import android.app.ActionBar;
 import android.content.Intent;
 
 import android.content.res.Resources;
@@ -20,12 +19,10 @@ import android.support.annotation.DrawableRes;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.content.res.ResourcesCompat;
-import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
@@ -37,21 +34,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.PopupWindow;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
-
-import com.google.android.gms.internal.maps.zzt;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.UiSettings;
+
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
-import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.JointType;
 import com.google.android.gms.maps.model.LatLng;
@@ -65,7 +57,6 @@ import com.google.maps.android.PolyUtil;
 
 
 import java.util.ArrayList;
-import java.util.Random;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener, GoogleMap.OnMapClickListener,GoogleMap.OnMarkerClickListener {
@@ -74,11 +65,8 @@ public class MainActivity extends AppCompatActivity
     private Context mContext;
     private PopupWindow filterPop;
 
-    private FloatingActionButton floatingActionButton;
     private RelativeLayout maprlayout;
 
-    private RadioGroup filterRadioGroupCC;
-    private RadioGroup filterRadioGroupS;
     private CheckBox chbox_c1,
             chbox_c2,
             chbox_c3,
@@ -103,7 +91,10 @@ public class MainActivity extends AppCompatActivity
             22.317043339029887,114.1712237522006,
             22.31716895493705,114.17005430907011,
             22.319859279350407,114.16982866823673,
-            22.318747053294828,114.1710225865245
+            22.318747053294828,114.1710225865245,
+            22.317966070527866,114.16876550763845,
+            22.318511332189384,114.17217459529638
+
 
     };
     private double treasureCoor[]={
@@ -173,7 +164,6 @@ public class MainActivity extends AppCompatActivity
                 chbox_c1 = (CheckBox) customView.findViewById(R.id.cbox_c1);
                 chbox_c2 = (CheckBox) customView.findViewById(R.id.cbox_c2);
                 chbox_c3 = (CheckBox) customView.findViewById(R.id.cbox_c3);
-                filterRadioGroupCC = (RadioGroup) customView.findViewById(R.id.radioGCreditCard);
 
                 chbox_s1 = (CheckBox) customView.findViewById(R.id.cbox_s1);
                 chbox_s2 = (CheckBox) customView.findViewById(R.id.cbox_s2);
@@ -184,7 +174,6 @@ public class MainActivity extends AppCompatActivity
                 chbox_s1.setChecked(s1_val);
                 chbox_s2.setChecked(s2_val);
 
-                filterRadioGroupS = (RadioGroup) customView.findViewById(R.id.radioGShops);
 
 
                 if (Build.VERSION.SDK_INT >= 21) {
@@ -205,6 +194,7 @@ public class MainActivity extends AppCompatActivity
                         s1_val = chbox_s1.isChecked();
                         s2_val = chbox_s2.isChecked();
 
+                        filterMarkers((s1_val ? 1 : 0) +(s2_val ? 1 : 0)*2);
                         filterPop.dismiss();
                     }
                 });
@@ -364,19 +354,17 @@ public class MainActivity extends AppCompatActivity
     }
     @Override
     public void onInfoWindowClick(Marker marker) {
-        Log.v("frankie","asdasdsa");
-        Toast.makeText(this, "Info window clicked",
-                Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, TestActivity.class);
         startActivity(intent);
     }
 
     @Override
     public void onMapClick(LatLng latLng) {
-        Log.d("Frankie",latLng.latitude+""+latLng.longitude);
+        Log.d("Frankie",latLng.latitude+","+latLng.longitude);
     }
     private void filterMarkers(int id)
     {
+        polyline.setVisible(false);
         boolean mask1=(id==1 || id==3);
         boolean mask2=(id>1);
 
@@ -399,6 +387,14 @@ public class MainActivity extends AppCompatActivity
         }
         else if (marker.getId().equals("m4")) {
             polyline.setPoints(PolyUtil.decode("utegCwtywTeI`Aa@FQsAOsA?[Kw@E?G}@SsBUD"));
+            polyline.setVisible(true);
+        }
+        else if (marker.getId().equals("m5")) {
+            polyline.setPoints(PolyUtil.decode("utegCwtywTwH~@"));
+            polyline.setVisible(true);
+        }
+        else if (marker.getId().equals("m6")) {
+            polyline.setPoints(PolyUtil.decode("utegCwtywTeI`Aa@FQsAOsA?[Kw@FAG}@SuBKy@KeBAOj@G"));
             polyline.setVisible(true);
         }
         else
