@@ -206,50 +206,12 @@ public class MainActivity extends AppCompatActivity
         // Add a marker in Sydney and move the camera
         LatLng HK = new LatLng(22.2829369,114.1828038);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(HK,10));
-
-        // Add markers
-        mMap.addCircle(new CircleOptions().center(new LatLng(22.316434177817605,114.16926439851522)).radius(10));
-        Marker marker = null;
-
-        for(int i=0;i<markerCoor.length/2;i++) {
-            if(i<3)
-            {
-                marker = mMap.addMarker(new MarkerOptions().position(new LatLng(markerCoor[2*i],markerCoor[2*i+1])).snippet("marker: "+i).title("asdasd").icon(vectorToBitmap(R.drawable.ic_local_dining_black_24dp)));
-                marker.setTag(i);
-                markerArrayList.add(marker);
-            }else {
-                marker = mMap.addMarker(new MarkerOptions().position(new LatLng(markerCoor[2 * i], markerCoor[2 * i + 1])).snippet("marker: " + i).title("asdasd").icon(vectorToBitmap((R.drawable.ic_store_mall_directory_black_24dp))));
-                marker.setTag(i);
-                markerArrayList.add(marker);
-            }
-        }
-        Bitmap img = BitmapFactory.decodeResource(getResources(),R.drawable.treasure_2);
-        BitmapDescriptor bitmapDescriptor = BitmapDescriptorFactory.fromBitmap(img);
-        for (int i=0;i<treasureCoor.length/2;i++){
-            mMap.addMarker( new MarkerOptions().position(new LatLng(treasureCoor[2*i],treasureCoor[2*i+1])).snippet("marker: "+i).title("asdasd").icon(bitmapDescriptor));
-        }
-
-
-
-
-
-        polyline= mMap.addPolyline(new PolylineOptions().addAll(PolyUtil.decode("utegCwtywTeI`Aa@FQsAOsA?[Kw@uBT}@JAMM@@Ne@Do@J")));
-        // Use a round cap at the start of the line.
-        polyline.setStartCap(new RoundCap());
-
-
-        polyline.setEndCap(new RoundCap());
-        polyline.setWidth(POLYLINE_STROKE_WIDTH_PX);
-        polyline.setColor(COLOR_BLACK_ARGB);
-        polyline.setJointType(JointType.ROUND);
-        polyline.setWidth(15);
-        polyline.setVisible(false);
-
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 initCameraPosition();
+                // Add markers
             }
         }, 1500);
 
@@ -261,7 +223,46 @@ public class MainActivity extends AppCompatActivity
                 .zoom(17f)                   // Sets the zoom
                 .tilt(30)                   // Sets the tilt of the camera to 30 degrees
                 .build();                   // Creates a CameraPosition from the builder
-        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition),2000,null);
+        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition), 2000, new GoogleMap.CancelableCallback() {
+            @Override
+            public void onFinish() {
+                mMap.addCircle(new CircleOptions().center(new LatLng(22.316434177817605,114.16926439851522)).radius(10));
+                for(int i=0;i<markerCoor.length/2;i++) {
+                    if(i<3)
+
+                        markerArrayList.add( mMap.addMarker(new MarkerOptions().position(new LatLng(markerCoor[2*i],markerCoor[2*i+1])).snippet("marker: "+i).title("asdasd").icon(vectorToBitmap(R.drawable.ic_local_dining_black_24dp))));
+                    else
+                        markerArrayList.add(mMap.addMarker(new MarkerOptions().position(new LatLng(markerCoor[2 * i], markerCoor[2 * i + 1])).snippet("marker: " + i).title("asdasd").icon(vectorToBitmap((R.drawable.ic_store_mall_directory_black_24dp)))));
+                }
+                Bitmap img = BitmapFactory.decodeResource(getResources(),R.drawable.treasure_2);
+                BitmapDescriptor bitmapDescriptor = BitmapDescriptorFactory.fromBitmap(img);
+                for (int i=0;i<treasureCoor.length/2;i++){
+                    mMap.addMarker( new MarkerOptions().position(new LatLng(treasureCoor[2*i],treasureCoor[2*i+1])).snippet("marker: "+i).title("asdasd").icon(bitmapDescriptor));
+                }
+
+
+
+
+
+                polyline= mMap.addPolyline(new PolylineOptions().addAll(PolyUtil.decode("utegCwtywTeI`Aa@FQsAOsA?[Kw@uBT}@JAMM@@Ne@Do@J")));
+                // Use a round cap at the start of the line.
+                polyline.setStartCap(new RoundCap());
+
+
+                polyline.setEndCap(new RoundCap());
+                polyline.setWidth(POLYLINE_STROKE_WIDTH_PX);
+                polyline.setColor(COLOR_BLACK_ARGB);
+                polyline.setJointType(JointType.ROUND);
+                polyline.setWidth(15);
+                polyline.setVisible(false);
+
+            }
+
+            @Override
+            public void onCancel() {
+
+            }
+        });
     }
     @Override
     public void onInfoWindowClick(Marker marker) {
@@ -293,11 +294,12 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onMarkerClick(Marker marker) {
-        if((int)marker.getTag()==3) {
+        Log.v("Frankie",marker.getId());
+        if(marker.getId().equals("m3")) {
             polyline.setPoints(PolyUtil.decode("utegCwtywTeI`Aa@FQsAOsA?[Kw@uBT}@JAMM@@Ne@Do@J"));
             polyline.setVisible(true);
         }
-        else if ((int)marker.getTag()==4) {
+        else if (marker.getId().equals("m4")) {
             polyline.setPoints(PolyUtil.decode("utegCwtywTeI`Aa@FQsAOsA?[Kw@E?G}@SsBUD"));
             polyline.setVisible(true);
         }
