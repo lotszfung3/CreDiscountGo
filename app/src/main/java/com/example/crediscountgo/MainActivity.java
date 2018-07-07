@@ -1,5 +1,6 @@
 package com.example.crediscountgo;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -59,6 +60,7 @@ public class MainActivity extends AppCompatActivity
         setUpMap();
 
         setUpFloatingBtn();
+
 
     }
 
@@ -131,8 +133,14 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_camera) {
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
+            Intent startProdile = new Intent(this, UserProfile.class);
+            startActivity(startProdile);
+
 
         } else if (id == R.id.nav_slideshow) {
+            Intent startProdile = new Intent(this, Friend.class);
+            startActivity(startProdile);
+
 
         } else if (id == R.id.nav_manage) {
 
