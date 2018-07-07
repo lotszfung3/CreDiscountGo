@@ -138,7 +138,7 @@ public class MainActivity extends AppCompatActivity
 
 
         } else if (id == R.id.nav_slideshow) {
-            Intent startProdile = new Intent(this, Friend.class);
+            Intent startProdile = new Intent(this, FriendListActivity.class);
             startActivity(startProdile);
 
 
