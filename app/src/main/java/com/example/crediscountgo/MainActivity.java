@@ -342,9 +342,6 @@ public class MainActivity extends AppCompatActivity
                 }
 
 
-
-
-
                 polyline= mMap.addPolyline(new PolylineOptions().addAll(PolyUtil.decode("utegCwtywTeI`Aa@FQsAOsA?[Kw@uBT}@JAMM@@Ne@Do@J")));
                 // Use a round cap at the start of the line.
                 polyline.setStartCap(new RoundCap());

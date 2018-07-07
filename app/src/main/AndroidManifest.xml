@@ -13,7 +13,6 @@
         android:allowBackup="true"
         android:icon="@drawable/logo_icon"
         android:label="@string/app_name"
-
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -40,8 +39,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".popFilter"></activity>
-
+        <activity android:name=".popFilter" />
+        <activity
+            android:name=".TestActivity"
+            android:label="@string/title_activity_test"></activity>
     </application>
 
 </manifest>
