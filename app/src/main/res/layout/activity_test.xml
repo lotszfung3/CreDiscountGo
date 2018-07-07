@@ -1,9 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TestActivity">
-
-</android.support.constraint.ConstraintLayout>
+    tools:context=".TestActivity"
+    android:orientation="vertical">
+<ImageView
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    android:background="#888888"
+    />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Shop name"
+        android:textAlignment="center"
+        android:textSize="30dp"
+        android:layout_margin="5dp"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Long description: This is the description. blah, blah,blah blah, blah,blah blah, blah,blah blah, blah,blah blah, blah,blah blah, blah,blah"
+        android:textSize="20dp"
+        android:layout_margin="5dp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Location: This is another description. blah, blah,blah blah, blah,blah blah, blah,blah blah, blah,blah blah, blah,blah blah, blah,blah"
+        android:textSize="20dp"
+        android:layout_margin="5dp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="phone: "12345678"
+        android:textSize="20dp"
+        android:layout_margin="5dp"/>
+</LinearLayout>
