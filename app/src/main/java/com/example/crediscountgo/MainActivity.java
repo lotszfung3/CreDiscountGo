@@ -133,8 +133,14 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_camera) {
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
+            Intent startProdile = new Intent(this, UserProfile.class);
+            startActivity(startProdile);
+
 
         } else if (id == R.id.nav_slideshow) {
+            Intent startProdile = new Intent(this, FriendListActivity.class);
+            startActivity(startProdile);
+
 
         } else if (id == R.id.temp_ar) {
             Intent temp = new Intent(this, ARActivity.class);

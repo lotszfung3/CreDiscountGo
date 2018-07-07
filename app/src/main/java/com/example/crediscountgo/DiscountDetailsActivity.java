@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.example.crediscountgo.model.MovieDiscount;
 import com.google.gson.Gson;
 
 public class DiscountDetailsActivity extends AppCompatActivity {

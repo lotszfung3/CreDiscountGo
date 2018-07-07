@@ -16,4 +16,6 @@
     <string name="discount_message">50% off Movie Ticket Discount!</string>
     <string name="discount_title">Discount title</string>
     <string name="partnership">partners</string>
+    <string name="default_notification_channel_id">channelID</string>
+    <string name="friend_list_title">Friends</string>
 </resources>

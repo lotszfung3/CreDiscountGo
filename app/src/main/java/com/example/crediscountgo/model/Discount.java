@@ -1,8 +1,4 @@
-package com.example.crediscountgo;
-
-import com.google.ar.sceneform.rendering.ModelRenderable;
-
-import java.util.Date;
+package com.example.crediscountgo.model;
 
 public class Discount extends Surprise {
 
@@ -46,7 +42,27 @@ public class Discount extends Surprise {
         this.endDate = endDate;
     }
 
+
+    public int getImgId() {
+        return imgId;
+    }
+
+    public void setImgId(int imgId) {
+        this.imgId = imgId;
+    }
+
+    private int imgId;
     private String qrCodeContent;
+
+    public int getQrCodeId() {
+        return qrCodeId;
+    }
+
+    public void setQrCodeId(int qrCodeId) {
+        this.qrCodeId = qrCodeId;
+    }
+
+    private int qrCodeId;
     private String title;
     private String message;
     private String startDate;

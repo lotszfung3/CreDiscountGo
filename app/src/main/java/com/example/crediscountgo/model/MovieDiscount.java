@@ -1,16 +1,8 @@
-package com.example.crediscountgo;
+package com.example.crediscountgo.model;
 
-import android.app.Activity;
-import android.net.Uri;
-import android.view.Gravity;
-import android.widget.Toast;
+import com.example.crediscountgo.model.Discount;
 
-import com.google.ar.sceneform.rendering.ModelRenderable;
-
-import java.util.Calendar;
-import java.util.Date;
-
-public class MovieDiscount extends Discount{
+public class MovieDiscount extends Discount {
 
     public MovieDiscount(){
 
