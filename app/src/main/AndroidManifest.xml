@@ -93,8 +93,10 @@
         <!-- [END firebase_service] -->
         <!-- [START firebase_iid_service] -->
         <!-- [END firebase_iid_service] -->
-        <activity android:name=".FriendListActivity" />
-        <activity android:name=".UserProfile"></activity>
+        <activity android:name=".FriendListActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".UserProfile"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".popFilter" />
         <activity
             android:name=".TestActivity"
