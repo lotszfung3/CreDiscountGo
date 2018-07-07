@@ -1,7 +1,10 @@
 package com.example.crediscountgo;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
@@ -13,9 +16,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.PopupWindow;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -34,9 +45,30 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,OnMapReadyCallback {
     private GoogleMap mMap;
+    private Context mContext;
+    private PopupWindow filterPop;
+
     private double markerCoor[] = new double[20];
     private ArrayList<Circle> circleArrayList;
     private FloatingActionButton floatingActionButton;
+    private RelativeLayout maprlayout;
+
+    private RadioGroup filterRadioGroupCC;
+    private RadioGroup filterRadioGroupS;
+    private CheckBox chbox_c1,
+            chbox_c2,
+            chbox_c3,
+            chbox_s1,
+            chbox_s2;
+
+    private Boolean c1_val;
+    private Boolean c2_val;
+    private Boolean c3_val;
+    private Boolean s1_val;
+    private Boolean s2_val;
+
+
+    private FloatingActionButton filterActionButton;
     LatLng KT = new LatLng(22.3088477, 114.217971);
 
     @Override
@@ -58,35 +90,82 @@ public class MainActivity extends AppCompatActivity
 
         setUpMap();
 
-        setUpFloatingBtn();
+
+        c1_val = true;
+        c2_val = true;
+        c3_val = true;
+        s1_val = true;
+        s2_val = true;
+
+
+        setUpfilterBtn();
 
 
     }
 
-    private void setUpFloatingBtn() {
-        floatingActionButton = (FloatingActionButton)findViewById(R.id.floatingBtn1);
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Creating the instance of PopupMenu
-                PopupMenu popup = new PopupMenu(MainActivity.this, floatingActionButton);
-                //Inflating the Popup using xml file
-                popup.getMenuInflater()
-                        .inflate(R.menu.activity_main_drawer, popup.getMenu());
+    private void setUpfilterBtn() {
 
-                //registering popup with OnMenuItemClickListener
-                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    public boolean onMenuItemClick(MenuItem item) {
-                        Toast.makeText(
-                                MainActivity.this,
-                                "You Clicked : " + item.getTitle(),
-                                Toast.LENGTH_SHORT
-                        ).show();
-                        return true;
+        mContext = getApplicationContext();
+        maprlayout = (RelativeLayout) findViewById(R.id.maprl);
+
+
+        filterActionButton = (FloatingActionButton)findViewById(R.id.filterBtn);
+        filterActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(LAYOUT_INFLATER_SERVICE);
+                View customView = inflater.inflate(R.layout.filterpopup,null);
+
+                filterPop = new PopupWindow(
+                        customView, RelativeLayout.LayoutParams.WRAP_CONTENT,
+                        RelativeLayout.LayoutParams.WRAP_CONTENT
+                );
+
+                chbox_c1 = (CheckBox) customView.findViewById(R.id.cbox_c1);
+                chbox_c2 = (CheckBox) customView.findViewById(R.id.cbox_c2);
+                chbox_c3 = (CheckBox) customView.findViewById(R.id.cbox_c3);
+                filterRadioGroupCC = (RadioGroup) customView.findViewById(R.id.radioGCreditCard);
+
+                chbox_s1 = (CheckBox) customView.findViewById(R.id.cbox_s1);
+                chbox_s2 = (CheckBox) customView.findViewById(R.id.cbox_s2);
+
+                chbox_c1.setChecked(c1_val);
+                chbox_c2.setChecked(c2_val);
+                chbox_c3.setChecked(c3_val);
+                chbox_s1.setChecked(s1_val);
+                chbox_s2.setChecked(s2_val);
+
+                filterRadioGroupS = (RadioGroup) customView.findViewById(R.id.radioGShops);
+
+
+
+                if(Build.VERSION.SDK_INT>=21){
+                    filterPop.setElevation(5.0f);
+                }
+
+                Button closeButton = (Button) customView.findViewById(R.id.filterOK);
+
+                // Set a click listener for the popup window close button
+                closeButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        // Dismiss the popup window
+
+                        c1_val = chbox_c1.isChecked();
+                        c2_val = chbox_c2.isChecked();
+                        c3_val = chbox_c3.isChecked();
+                        s1_val = chbox_s1.isChecked();
+                        s2_val = chbox_s2.isChecked();
+
+                        filterPop.dismiss();
                     }
                 });
 
-                popup.show(); //showing popup menu
+
+                filterPop.showAtLocation(maprlayout, Gravity.CENTER,0,0);
+
+
             }
         });
     }
