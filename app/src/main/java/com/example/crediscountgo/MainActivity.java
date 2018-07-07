@@ -386,9 +386,9 @@ public class MainActivity extends AppCompatActivity
                 for(int i=0;i<markerCoor.length/2;i++) {
                     if(i<3)
 
-                        markerArrayList.add( mMap.addMarker(new MarkerOptions().position(new LatLng(markerCoor[2*i],markerCoor[2*i+1])).icon(vectorToBitmap(R.drawable.ic_local_dining_black_24dp))));
+                        markerArrayList.add( mMap.addMarker(new MarkerOptions().position(new LatLng(markerCoor[2*i],markerCoor[2*i+1])).icon(BitmapDescriptorFactory.fromResource(R.drawable.fastfood_marker))));
                     else
-                        markerArrayList.add(mMap.addMarker(new MarkerOptions().position(new LatLng(markerCoor[2 * i], markerCoor[2 * i + 1])).icon(vectorToBitmap((R.drawable.ic_store_mall_directory_black_24dp)))));
+                        markerArrayList.add(mMap.addMarker(new MarkerOptions().position(new LatLng(markerCoor[2 * i], markerCoor[2 * i + 1])).icon(BitmapDescriptorFactory.fromResource(R.drawable.shopping_marker))));
                 }
                 Bitmap img = BitmapFactory.decodeResource(getResources(),R.drawable.treasure_2);
                 BitmapDescriptor bitmapDescriptor = BitmapDescriptorFactory.fromBitmap(img);
