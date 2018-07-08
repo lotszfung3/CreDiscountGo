@@ -39,7 +39,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="8dp"
-                        android:text="Smart Phone User"
+                        android:text="Cost Saving Boy"
                         android:textColor="#FFF"
                         android:textSize="30sp" />
 
