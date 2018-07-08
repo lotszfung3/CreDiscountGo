@@ -211,7 +211,7 @@ public class MainActivity extends AppCompatActivity
         Discount tempDis2= new Discount("m2", "London Chinese Restaurant", "20% off for Purchases \n exceeding $200", "LongDis of m2", "HSBC", "Your HSBC card:");
         Discount tempDis3= new Discount("m3", "Sasa",  "Half Price - specific products", "LongDis of m3", "AE", "Your AE card:");
         Discount tempDis4= new Discount("m4", "Adidas", "15% off on any purchase", "LongDis of m4", "DBS", "Your DBS card:");
-        Discount tempDis5= new Discount("m5", "Langham Place", "5% off in specific stores", "LongDis of m5", "HSBC", "Your HSBC card:");
+        Discount tempDis5= new Discount("m5", "Langham Place", "10% off in specific restaurants", "LongDis of m5", "HSBC", "Your HSBC card:");
         Discount tempDis6= new Discount("m6", "Ease House Cafe", "1 Free dessert per set dinner", "LongDis of m6", "AE", "Your AE card:");
         discountMarkersArrayList.add(tempDis0);
         discountMarkersArrayList.add(tempDis1);
@@ -443,7 +443,7 @@ public class MainActivity extends AppCompatActivity
             public void onFinish() {
 
                 for(int i=0;i<markerCoor.length/2;i++) {
-                    if(i<3)
+                    if(i<3 || i==5)
 
                         markerArrayList.add( mMap.addMarker(new MarkerOptions().position(new LatLng(markerCoor[2*i],markerCoor[2*i+1])).icon(BitmapDescriptorFactory.fromResource(R.drawable.fastfood_marker))));
                     else
@@ -521,7 +521,7 @@ public class MainActivity extends AppCompatActivity
         boolean mask2=(id>1);
 
             for (int i=0;i<markerArrayList.size();i++) {
-                if (i < 3)
+                if (i < 3 || i==5)
                     markerArrayList.get(i).setVisible(mask1);
                 else
                     markerArrayList.get(i).setVisible(mask2);
