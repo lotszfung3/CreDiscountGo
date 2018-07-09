@@ -1,13 +1,14 @@
 # CreDiscountGo
-A demo mobile application
+A demo mobile application (Archived)
 
 # Notes
 ## Features
-1. Google map
-2. Button on the bottom with callback
-3. Useless Search Bar on the top
-4. Few Markers will be shown after pressing the leftest button
+1. Google Map with nice style
+2. Multiple markers showing various stuff
+3. Hardcoded walking routes to multiple destinations
+4. AR stuff (like Pokemon Go!)
+5. Some static pages showing info
 
 ## Ways to use
 1. Clone this repo
-2. Import it using Android Studio
+2. Import it to Android Studio
